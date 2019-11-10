@@ -1,37 +1,80 @@
 module Main exposing (..)
 
-import Browser
+-- import Action
+
+import Browser exposing (UrlRequest(..))
+import Browser.Navigation as Nav
 import Css exposing (..)
 import Html
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href, src, style)
 import Html.Styled.Events exposing (onClick)
 import Random
+import Url
+import Url.Parser as Url exposing ((</>), Parser)
 
 
 
 ---- MODEL ----
 
 
+type Page
+    = Home
+    | Contact
+
+
 type alias Model =
-    { counter : Int
+    { navKey : Nav.Key
+    , page : Page
+    , counter : Int
     , menuOn : Bool
     }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( { counter = 1, menuOn = False }, Cmd.none )
+init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
+init flags url key =
+    ( { navKey = key
+      , page = urlToPage url
+      , counter = 1
+      , menuOn = False
+      }
+    , Cmd.none
+    )
 
 
 
 ---- UPDATE ----
 
 
+urlToPage : Url.Url -> Page
+urlToPage url =
+    -- We start with our URL
+    url
+        -- Send it through our URL parser (located below)
+        |> Url.parse urlParser
+        -- And if it didn't match any known pages, return Index
+        |> Maybe.withDefault Home
+
+
+urlParser : Parser (Page -> a) a
+urlParser =
+    -- We try to match one of the following URLs
+    Url.oneOf
+        -- Url.top matches root (i.e. there is nothing after 'https://example.com')
+        [ Url.map Home Url.top
+
+        -- Url.s matches URLs ending with some string, in our case '/contact'
+        , Url.map Contact (Url.s "contact")
+        ]
+
+
 type Msg
     = Roll
     | NewFace Int
     | TogleMenu
+    | LinkClicked UrlRequest
+    | UrlChange Url.Url
+    | OpenContactPage
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -43,13 +86,35 @@ update msg model =
             )
 
         NewFace newFace ->
-            ( Model newFace model.menuOn
+            ( Model model.navKey model.page newFace model.menuOn
             , Cmd.none
             )
 
         TogleMenu ->
-            ( Model model.counter (not model.menuOn)
+            ( Model model.navKey model.page model.counter (not model.menuOn)
             , Cmd.none
+            )
+
+        LinkClicked urlRequest ->
+            case urlRequest of
+                Internal url ->
+                    ( model
+                    , Nav.pushUrl model.navKey (Url.toString url)
+                    )
+
+                External url ->
+                    ( model
+                    , Cmd.none
+                    )
+
+        UrlChange url ->
+            ( { model | page = urlToPage url }
+            , Cmd.none
+            )
+
+        OpenContactPage ->
+            ( model
+            , Nav.pushUrl model.navKey "/contact"
             )
 
 
@@ -84,13 +149,32 @@ row =
         ]
 
 
-view : Model -> Html Msg
-view model =
+home model =
     nav [ css [ cursor crosshair ] ]
         [ menu model
         , beaLogo
         , row
         ]
+
+
+currentPage model =
+    case model.page of
+        Home ->
+            home model
+
+        Contact ->
+            text "Bea vagyok!"
+
+
+view : Model -> Browser.Document Msg
+view model =
+    let
+        body =
+            currentPage model
+    in
+    { body = [ Html.Styled.toUnstyled body ]
+    , title = "title"
+    }
 
 
 menuHoverButton : Html.Styled.Html Msg
@@ -140,9 +224,9 @@ menu model =
                         ]
                     ]
                 ]
-                [ text "contact" ]
+                [ text "projects" ]
             , a
-                [ onClick Roll
+                [ onClick OpenContactPage
                 , css
                     [ margin (px 10)
                     , hover
@@ -151,7 +235,7 @@ menu model =
                         ]
                     ]
                 ]
-                [ text "projects" ]
+                [ text "contact" ]
             ]
 
     else
@@ -164,11 +248,13 @@ menu model =
 
 main : Program () Model Msg
 main =
-    Browser.element
-        { init = \_ -> init
+    Browser.application
+        { init = init
         , update = update
         , subscriptions = subscriptions
-        , view = view >> toUnstyled
+        , view = view
+        , onUrlRequest = LinkClicked
+        , onUrlChange = UrlChange
         }
 
 
