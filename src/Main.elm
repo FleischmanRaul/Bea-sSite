@@ -20,7 +20,17 @@ black =
 
 transparent : Color
 transparent =
-    rgba 0 0 0 0.2
+    rgba 30 30 30 0.8
+
+
+hoverColor : Color
+hoverColor =
+    rgba 30 30 30 0.2
+
+
+modalColor : Color
+modalColor =
+    rgb 230 230 234
 
 
 brown : Color
@@ -33,6 +43,16 @@ white =
     rgb 255 255 255
 
 
+heronBlack : Color
+heronBlack =
+    rgb 35 30 37
+
+
+paleYellow : Color
+paleYellow =
+    rgb 255 251 214
+
+
 type Page
     = Home
     | Contact
@@ -40,18 +60,20 @@ type Page
 
 type alias Model =
     { menuOn : Bool
-    , modalOn : Bool
     , hoverOn : Bool
     , hoveredPicture : Int
+    , openedModal : Int
+    , bodyCss : List Style
     }
 
 
 init : ( Model, Cmd Msg )
 init =
     ( { menuOn = False
-      , modalOn = False
       , hoverOn = False
       , hoveredPicture = 0
+      , openedModal = 0
+      , bodyCss = [ cursor crosshair, overflow hidden, overflowY hidden ]
       }
     , Cmd.none
     )
@@ -60,9 +82,10 @@ init =
 type Msg
     = TogleMenu
     | CloseModal
-    | OpenModal
+    | OpenModal Int
     | HoverOn Int
     | HoverOff
+    | DoNothing
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -74,12 +97,12 @@ update msg model =
             )
 
         CloseModal ->
-            ( { model | modalOn = False }
+            ( { model | openedModal = 0, bodyCss = [ cursor crosshair ] }
             , Cmd.none
             )
 
-        OpenModal ->
-            ( { model | modalOn = True }
+        OpenModal id ->
+            ( { model | openedModal = id, bodyCss = [ cursor crosshair, overflow hidden, overflowY hidden ] }
             , Cmd.none
             )
 
@@ -90,6 +113,11 @@ update msg model =
 
         HoverOff ->
             ( { model | hoveredPicture = 0 }
+            , Cmd.none
+            )
+
+        DoNothing ->
+            ( model
             , Cmd.none
             )
 
@@ -110,7 +138,7 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     nav
-        [ css [ cursor crosshair ]
+        [ css model.bodyCss
         , style "-webkit-user-select" "none"
         , style "-moz-user-select" "none"
         , style "-ms-user-select" "none"
@@ -146,7 +174,7 @@ menuHoverButton model =
 projectTable : Model -> Html Msg
 projectTable model =
     div [ css [ maxWidth (vw 100) ] ]
-        [ project model "./pink.jpg" "first project" 1
+        [ project model "./heron/heron_landing.png" "HERON COLLECTION" 1
         , project model "./blue.jpg" "2 project" 2
         , project model "./gray.jpeg" "3 project" 3
         , project model "./pink.jpg" "4 project" 4
@@ -158,10 +186,12 @@ projectTable model =
 
 project : Model -> String -> String -> Int -> Html Msg
 project model picturePath description id =
-    div [ css [ display inlineBlock, position relative, margin (px 2), height (vmax 30), width (vmax 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff ]
-        [ img [ src picturePath, onClick OpenModal, css [ margin zero, height (vmax 30), width (vmax 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
+    div [ css [ display inlineBlock, position relative, margin (px 2), height (vmax 30), width (vmax 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick (OpenModal id) ]
+        [ img [ src picturePath, css [ margin zero, height (vmax 30), width (vmax 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
         , if model.hoveredPicture == id then
-            p [ css [ position absolute, backgroundColor transparent, width (vmax 30), height (vmax 4.5), bottom (px -16), borderRadius (rem 0.2) ] ] [ text description ]
+            p [ css [ position absolute, backgroundColor transparent, width (vmax 30), height (vmax 4), bottom (Css.em -1), borderRadius (rem 0.2), color white, fontSize (px 20), display Css.table ] ]
+                [ p [ css [ display tableCell, verticalAlign middle, fontWeight bold ] ] [ text description ]
+                ]
 
           else
             p [] []
@@ -170,40 +200,67 @@ project model picturePath description id =
 
 projectModal : Model -> Html Msg
 projectModal model =
-    if model.modalOn then
-        div [ css [ backgroundColor white, position fixed, left (vw 10), width (vw 80), top (vh 10), overflow auto, borderRadius (rem 0.2) ] ]
-            [ div []
-                [ h1 [ css [ display Css.table, margin (px 100) ] ]
-                    [ span [ css [ display tableCell, verticalAlign middle ] ] [ text "Header" ]
-                    , img [ src "./cross.png", css [ display tableCell, verticalAlign middle, left (px 100), height (px 16), width (px 16) ], onClick CloseModal ] []
-                    ]
-                ]
-            , div [ css [ margin (px 100), textAlign left ] ]
-                [ text
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, \n                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, \n                    but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem \n                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum\n                    \n                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it \n                    has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and \n                    web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. \n                    Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, \n                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, \n                    but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem \n                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum\n                    \n                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it \n                    has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and \n                    web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. \n                    Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, \n                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, \n                    but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem \n                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum\n                    \n                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it \n                    has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and \n                    web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. \n                    VarioLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, \n                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, \n                    but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem \n                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum\n                    \n                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it \n                    has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and \n                    web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. \n                    Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).us versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
-                ]
-            , div [ css [ paddingTop (vh 2) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
-            ]
+    if model.openedModal == 1 then
+        projectOne model
+
+    else if model.openedModal == 2 then
+        projectTwo model
 
     else
         div [] []
 
 
+projectOne model =
+    div [ css [ backgroundColor transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden ], onClick CloseModal ]
+        [ div [ css [ width (vw 70), backgroundColor heronBlack, marginLeft (vw 15), fontSize (px 0), pointerEvents none ] ]
+            [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick CloseModal ] []
+            , img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./heron/2.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            , div [ css [ width (vw 46), maxWidth (vw 100), fontSize (px 18), color paleYellow, marginLeft (vw 12), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
+                [ p [ css [] ] [ text "The name of the collection is HERON (a representative element for the Art Deco style and movement), including niche objects, gaining its main inspiration from Art Deco." ]
+                , p [ css [] ] [ text "The collection brings back its items from obsolescence, and gives them a design purpose, but a functional one aswell. \nThe collection consists of 4 objects: a chaise lounge, a bar cart, a set of auxiliary tables and a high stand for plants. The approached shapes recreate the Art Deco style through linear geometry, but breaks the symmetry, characteristic for it, while preserving its well-known elegance. High-quality materials have been used, combining Art Deco with contemporary notes, the collection's pieces getting a modern and stylish feel." ]
+                ]
+            , img [ src "./heron/4.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./heron/5.png", css [ width (vw 70), maxWidth (vw 100), marginTop (vh 15) ] ] []
+            , img [ src "./heron/6.png", css [ width (vw 70), maxWidth (vw 100), marginTop (vh 15) ] ] []
+            , img [ src "./heron/7.jpg", css [ width (vw 70), maxWidth (vw 100), marginTop (vh 15), marginBottom zero ] ] []
+            , img [ src "./heron/8.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        ]
+
+
+projectTwo model =
+    div [ css [ backgroundColor white, position fixed, left (vw 10), width (vw 80), top (vh 10), overflow auto, borderRadius (rem 0.2) ] ]
+        [ div []
+            [ h1 [ css [ display Css.table, margin (px 100) ] ]
+                [ span [ css [ display tableCell, verticalAlign middle ] ] [ text "Header" ]
+                , img [ src "./cross.png", css [ display tableCell, verticalAlign middle, left (px 100), height (px 16), width (px 16) ], onClick CloseModal ] []
+                ]
+            ]
+        , div [ css [ margin (px 100), textAlign left ] ]
+            [ text
+                "Second one"
+            ]
+        , div [ css [ paddingTop (vh 2) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        ]
+
+
 about : Html Msg
 about =
-    div [ css [ margin (vmin 10), lineHeight (px 30) ] ] [ text "Hello. My name is Beata Csaka. \nI am a multi-disciplinary designer, specialized in product, graphic and interior design. \nI studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees.\nI am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project. Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics. \nI believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work. \nThis online portfolio is a visual journey trough some of my projects! Enjoy it!" ]
+    div [ css [ margin (vw 12), width (vw 76), lineHeight (Css.em 2), fontSize (px 18) ] ] [ text "Hello. My name is Beata Csaka. \nI am a multi-disciplinary designer, specialized in product, graphic and interior design. \nI studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees.\nI am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project. Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics. \nI believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work. \nThis online portfolio is a visual journey trough some of my projects! Enjoy it!" ]
 
 
 menu : Model -> Html.Styled.Html Msg
 menu model =
     if model.menuOn then
         div
-            [ css [ fontSize (px 24) ]
+            [ css [ fontSize (px 24), paddingTop (px 20) ]
             ]
             [ a
                 [ onClick TogleMenu
                 , css
-                    [ margin (px 10)
+                    [ margin (px 30)
                     , hover
                         [ textDecorationLine underline
                         ]
@@ -213,7 +270,7 @@ menu model =
             , a
                 [ onClick TogleMenu
                 , css
-                    [ margin (px 10)
+                    [ margin (px 30)
                     , hover
                         [ textDecorationLine underline
                         ]
@@ -223,7 +280,7 @@ menu model =
             , a
                 [ onClick TogleMenu
                 , css
-                    [ margin (px 10)
+                    [ margin (px 30)
                     , hover
                         [ textDecorationLine underline
                         ]
@@ -233,7 +290,7 @@ menu model =
             , a
                 [ onClick TogleMenu
                 , css
-                    [ margin (px 10)
+                    [ margin (px 30)
                     , hover
                         [ textDecorationLine underline
                         ]
