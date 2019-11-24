@@ -15,7 +15,7 @@ type alias Messages message =
     }
 
 
-projectOne model messages =
+projectOne messages =
     div [ css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden ], onClick messages.closeModal ]
         [ div [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15), fontSize (px 0), pointerEvents none ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
@@ -35,7 +35,7 @@ projectOne model messages =
         ]
 
 
-projectTwo model messages =
+projectTwo messages =
     div [ css [ backgroundColor Color.white, position fixed, left (vw 10), width (vw 80), top (vh 10), overflow auto, borderRadius (rem 0.2) ] ]
         [ div []
             [ h1 [ css [ display Css.table, margin (px 100) ] ]

@@ -6,15 +6,25 @@ import Browser exposing (UrlRequest(..))
 import Browser.Dom as Dom
 import Color
 import Css exposing (..)
+import Ease
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, id, src, style)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
+import SmoothScroll exposing (Config, scrollTo, scrollToWithOptions)
 import Task
 
 
 
 ---- MODEL ----
+
+
+defaultConfig : Config
+defaultConfig =
+    { offset = 12
+    , speed = 50
+    , easing = Ease.outQuint
+    }
 
 
 type Page
@@ -53,10 +63,10 @@ type Msg
     | JumpTo String
 
 
-jumpToBottom : String -> Cmd Msg
-jumpToBottom id =
-    Dom.getViewportOf id
-        |> Task.andThen (\info -> Dom.setViewportOf id 0 1000)
+jumpTo : String -> Cmd Msg
+jumpTo id =
+    Dom.getElement id
+        |> Task.andThen (\info -> Dom.setViewport 0 info.element.y)
         |> Task.attempt (\_ -> DoNothing)
 
 
@@ -95,7 +105,7 @@ update msg model =
 
         JumpTo id ->
             ( model
-            , jumpToBottom id
+            , Task.attempt (always DoNothing) (scrollToWithOptions defaultConfig id)
             )
 
 
@@ -120,6 +130,7 @@ view model =
         , style "-moz-user-select" "none"
         , style "-ms-user-select" "none"
         , style "user-select" "none"
+        , style "scroll-behavior" "smooth"
         ]
         [ menu model
         , beaLogo model
@@ -150,7 +161,7 @@ menuHoverButton model =
 
 projectTable : Model -> Html Msg
 projectTable model =
-    div [ css [ maxWidth (vw 100) ] ]
+    div [ css [ maxWidth (vw 100), fontSize (px 0) ], id "projects" ]
         [ project model "./heron/heron_landing.png" "HERON COLLECTION" 1
         , project model "./blue.jpg" "2 project" 2
         , project model "./gray.jpeg" "3 project" 3
@@ -178,12 +189,12 @@ project model picturePath description id =
 projectModal : Model -> Html Msg
 projectModal model =
     if model.openedModal == 1 then
-        Projects.projectOne model
+        Projects.projectOne
             { closeModal = CloseModal
             }
 
     else if model.openedModal == 2 then
-        Projects.projectTwo model
+        Projects.projectTwo
             { closeModal = CloseModal
             }
 
@@ -212,7 +223,7 @@ menu model =
                 ]
                 [ text "Home" ]
             , a
-                [ onClick (JumpTo "about")
+                [ onClick (JumpTo "projects")
                 , css
                     [ margin (px 30)
                     , hover
@@ -222,7 +233,7 @@ menu model =
                 ]
                 [ text "Projects" ]
             , a
-                [ onClick TogleMenu
+                [ onClick (JumpTo "about")
                 , css
                     [ margin (px 30)
                     , hover
