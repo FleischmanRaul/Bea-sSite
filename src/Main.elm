@@ -1,9 +1,6 @@
 module Main exposing (..)
 
--- import Action
-
 import Browser exposing (UrlRequest(..))
-import Browser.Dom as Dom
 import Color
 import Css exposing (..)
 import Ease
@@ -11,7 +8,7 @@ import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, id, src, style)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
-import SmoothScroll exposing (Config, scrollTo, scrollToWithOptions)
+import SmoothScroll exposing (Config, scrollToWithOptions)
 import Task
 
 
@@ -22,7 +19,7 @@ import Task
 defaultConfig : Config
 defaultConfig =
     { offset = 12
-    , speed = 50
+    , speed = 40
     , easing = Ease.outQuint
     }
 
@@ -63,13 +60,6 @@ type Msg
     | JumpTo String
 
 
-jumpTo : String -> Cmd Msg
-jumpTo id =
-    Dom.getElement id
-        |> Task.andThen (\info -> Dom.setViewport 0 info.element.y)
-        |> Task.attempt (\_ -> DoNothing)
-
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -84,7 +74,7 @@ update msg model =
             )
 
         OpenModal id ->
-            ( { model | openedModal = id, bodyCss = [ cursor crosshair, overflow hidden, overflowY hidden ] }
+            ( { model | openedModal = id, bodyCss = [ cursor crosshair, overflow hidden, overflowY hidden, pointerEvents none ] }
             , Cmd.none
             )
 
@@ -130,7 +120,6 @@ view model =
         , style "-moz-user-select" "none"
         , style "-ms-user-select" "none"
         , style "user-select" "none"
-        , style "scroll-behavior" "smooth"
         ]
         [ menu model
         , beaLogo model
@@ -144,19 +133,14 @@ view model =
 beaLogo : Model -> Html Msg
 beaLogo model =
     div [ css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
-        [ menuHoverButton model
+        [ if model.menuOn then
+            img [ src "./cross.png", css [ height (vmin 4), width (vmin 4), marginRight (vmin 25) ], onClick TogleMenu ] []
+
+          else
+            img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), marginRight (vmin 25) ], onClick TogleMenu ] []
         , img [ src "./bea_logo.png", css [ margin (vmin 15), height (vmin 60), width (vmin 60), maxWidth (vw 100) ] ] []
         , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), marginLeft (vmin 25), visibility hidden ] ] []
         ]
-
-
-menuHoverButton : Model -> Html.Styled.Html Msg
-menuHoverButton model =
-    if model.menuOn then
-        img [ src "./cross.png", css [ height (vmin 4), width (vmin 4), marginRight (vmin 25) ], onClick TogleMenu ] []
-
-    else
-        img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), marginRight (vmin 25) ], onClick TogleMenu ] []
 
 
 projectTable : Model -> Html Msg
@@ -174,7 +158,7 @@ projectTable model =
 
 project : Model -> String -> String -> Int -> Html Msg
 project model picturePath description id =
-    div [ css [ display inlineBlock, position relative, margin (px 2), height (vmax 30), width (vmax 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick (OpenModal id) ]
+    div [ css [ display inlineBlock, position relative, margin (px 2), height (vmax 30), width (vmax 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick <| OpenModal id ]
         [ img [ src picturePath, css [ margin zero, height (vmax 30), width (vmax 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
         , if model.hoveredPicture == id then
             p [ css [ position absolute, backgroundColor Color.transparent, width (vmax 30), height (vmax 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 20), display Css.table ] ]
@@ -204,7 +188,7 @@ projectModal model =
 
 about : Html Msg
 about =
-    div [ css [ margin (vw 12), width (vw 76), lineHeight (Css.em 2), fontSize (px 18) ], id "about" ] [ text "Hello. My name is Beata Csaka. \nI am a multi-disciplinary designer, specialized in product, graphic and interior design. \nI studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees.\nI am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project. Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics. \nI believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work. \nThis online portfolio is a visual journey trough some of my projects! Enjoy it!" ]
+    div [ css [ margin (vw 12), width (vw 76), lineHeight (Css.em 2), fontSize (px 18) ], id "about" ] [ Projects.aboutText ]
 
 
 menu : Model -> Html.Styled.Html Msg

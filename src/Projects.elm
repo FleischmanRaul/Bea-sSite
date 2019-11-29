@@ -1,4 +1,4 @@
-module Projects exposing (..)
+module Projects exposing (aboutText, projectOne, projectTwo)
 
 import Browser exposing (UrlRequest(..))
 import Browser.Dom as Dom
@@ -15,11 +15,15 @@ type alias Messages message =
     }
 
 
+modalCss =
+    css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden, pointerEvents auto ]
+
+
 projectOne messages =
-    div [ css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden ], onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15), fontSize (px 0), pointerEvents none ] ]
+    div [ modalCss, onClick messages.closeModal ]
+        [ div [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15), fontSize (px 0) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero, pointerEvents none ] ] []
             , img [ src "./heron/2.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
             , div [ css [ width (vw 46), maxWidth (vw 100), fontSize (px 18), color Color.paleYellow, marginLeft (vw 12), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
                 [ p [ css [] ] [ text "The name of the collection is HERON (a representative element for the Art Deco style and movement), including niche objects, gaining its main inspiration from Art Deco." ]
@@ -36,7 +40,7 @@ projectOne messages =
 
 
 projectTwo messages =
-    div [ css [ backgroundColor Color.white, position fixed, left (vw 10), width (vw 80), top (vh 10), overflow auto, borderRadius (rem 0.2) ] ]
+    div [ modalCss ]
         [ div []
             [ h1 [ css [ display Css.table, margin (px 100) ] ]
                 [ span [ css [ display tableCell, verticalAlign middle ] ] [ text "Header" ]
@@ -49,3 +53,7 @@ projectTwo messages =
             ]
         , div [ css [ paddingTop (vh 2) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
+
+
+aboutText =
+    text "Hello. My name is Beata Csaka. \nI am a multi-disciplinary designer, specialized in product, graphic and interior design. \nI studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees.\nI am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project. Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics. \nI believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work. \nThis online portfolio is a visual journey trough some of my projects! Enjoy it!"
