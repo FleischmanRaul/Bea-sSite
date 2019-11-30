@@ -1,6 +1,6 @@
 module Color exposing (..)
 
-import Css exposing (..)
+import Css exposing (Color, rgb, rgba)
 
 
 black : Color
@@ -41,3 +41,8 @@ heronBlack =
 paleYellow : Color
 paleYellow =
     rgb 255 251 214
+
+
+vividRed : Color
+vividRed =
+    rgb 224 67 101

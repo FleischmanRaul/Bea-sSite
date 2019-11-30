@@ -1,15 +1,19 @@
 module Main exposing (..)
 
-import Browser exposing (UrlRequest(..))
+import Browser
+import Browser.Navigation as Nav
 import Color
+import Contact exposing (contactBody)
 import Css exposing (..)
 import Ease
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, id, src, style)
+import Html.Styled.Attributes exposing (css, href, id, src, style)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
 import SmoothScroll exposing (Config, scrollToWithOptions)
 import Task
+import Url
+import Url.Parser as Url exposing ((</>), Parser)
 
 
 
@@ -26,6 +30,7 @@ defaultConfig =
 
 type Page
     = Home
+    | About
     | Contact
 
 
@@ -35,16 +40,20 @@ type alias Model =
     , hoveredPicture : Int
     , openedModal : Int
     , bodyCss : List Style
+    , navKey : Nav.Key
+    , page : Page
     }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
+init _ url key =
     ( { menuOn = False
       , hoverOn = False
       , hoveredPicture = 0
       , openedModal = 0
       , bodyCss = [ cursor crosshair, overflow hidden, overflowY hidden ]
+      , navKey = key
+      , page = urlToPage url
       }
     , Cmd.none
     )
@@ -58,6 +67,35 @@ type Msg
     | HoverOff
     | DoNothing
     | JumpTo String
+    | LinkClicked Browser.UrlRequest
+    | UrlChange Url.Url
+    | OpenHomePage
+    | OpenContactPage
+    | OpenAboutPage
+    | SendMail
+
+
+urlToPage : Url.Url -> Page
+urlToPage url =
+    -- We start with our URL
+    url
+        -- Send it through our URL parser (located below)
+        |> Url.parse urlParser
+        -- And if it didn't match any known pages, return Index
+        |> Maybe.withDefault Home
+
+
+urlParser : Parser (Page -> a) a
+urlParser =
+    -- We try to match one of the following URLs
+    Url.oneOf
+        -- Url.top matches root (i.e. there is nothing after 'https://example.com')
+        [ Url.map Home Url.top
+
+        -- Url.s matches URLs ending with some string, in our case '/contact'
+        , Url.map Contact (Url.s "contact")
+        , Url.map About (Url.s "about")
+        ]
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -98,6 +136,41 @@ update msg model =
             , Task.attempt (always DoNothing) (scrollToWithOptions defaultConfig id)
             )
 
+        LinkClicked urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model
+                    , Nav.pushUrl model.navKey (Url.toString url)
+                    )
+
+                Browser.External href ->
+                    ( model, Cmd.none )
+
+        UrlChange url ->
+            ( { model | page = urlToPage url }
+            , Cmd.none
+            )
+
+        OpenContactPage ->
+            ( { model | page = Contact }
+            , Nav.pushUrl model.navKey "/contact"
+            )
+
+        OpenAboutPage ->
+            ( model
+            , Nav.pushUrl model.navKey "/about"
+            )
+
+        OpenHomePage ->
+            ( model
+            , Nav.pushUrl model.navKey "/"
+            )
+
+        SendMail ->
+            ( model
+            , Cmd.none
+            )
+
 
 
 -- SUBSCRIPTIONS
@@ -112,8 +185,31 @@ subscriptions model =
 ---- VIEW ----
 
 
-view : Model -> Html Msg
+currentPage model =
+    case model.page of
+        Home ->
+            home model
+
+        About ->
+            about model
+
+        Contact ->
+            contact model
+
+
+view : Model -> Browser.Document Msg
 view model =
+    let
+        body =
+            currentPage model
+    in
+    { body = [ Html.Styled.toUnstyled body ]
+    , title = "Beata Csaka"
+    }
+
+
+home : Model -> Html Msg
+home model =
     nav
         [ css model.bodyCss
         , style "-webkit-user-select" "none"
@@ -124,9 +220,31 @@ view model =
         [ menu model
         , beaLogo model
         , projectTable model
-        , about
         , projectModal model
         , footer
+        ]
+
+
+contact : Model -> Html Msg
+contact model =
+    nav
+        [ css model.bodyCss
+        ]
+        [ menu model
+        , contactBody
+        , footer
+        ]
+
+
+contactBody : Html msg
+contactBody =
+    div []
+        [ div []
+            [ input [] []
+            , input [] []
+            ]
+        , div [] [ textarea [] [] ]
+        , button [ css [ color (rgb 50 50 50), backgroundColor Color.paleYellow, width <| px 100, height <| px 30 ] ] [ text "Send" ]
         ]
 
 
@@ -147,7 +265,7 @@ projectTable : Model -> Html Msg
 projectTable model =
     div [ css [ maxWidth (vw 100), fontSize (px 0) ], id "projects" ]
         [ project model "./heron/heron_landing.png" "HERON COLLECTION" 1
-        , project model "./blue.jpg" "2 project" 2
+        , project model "./indagra/indagra_landing.png" "INDAGRA" 2
         , project model "./gray.jpeg" "3 project" 3
         , project model "./pink.jpg" "4 project" 4
         , project model "./blue.jpg" "5 project" 5
@@ -186,9 +304,17 @@ projectModal model =
         div [] []
 
 
-about : Html Msg
-about =
-    div [ css [ margin (vw 12), width (vw 76), lineHeight (Css.em 2), fontSize (px 18) ], id "about" ] [ Projects.aboutText ]
+about : Model -> Html Msg
+about model =
+    nav
+        [ css model.bodyCss
+        ]
+        [ menu model
+        , div
+            [ css [ margin (vw 12), width (vw 76), lineHeight (Css.em 2), fontSize (px 18) ], id "about" ]
+            [ Projects.aboutText ]
+        , footer
+        ]
 
 
 menu : Model -> Html.Styled.Html Msg
@@ -198,7 +324,8 @@ menu model =
             [ css [ fontSize (px 24), paddingTop (px 20) ]
             ]
             [ a
-                [ css
+                [ onClick OpenHomePage
+                , css
                     [ margin (px 30)
                     , hover
                         [ textDecorationLine underline
@@ -217,7 +344,7 @@ menu model =
                 ]
                 [ text "Projects" ]
             , a
-                [ onClick (JumpTo "about")
+                [ onClick OpenAboutPage
                 , css
                     [ margin (px 30)
                     , hover
@@ -227,7 +354,7 @@ menu model =
                 ]
                 [ text "About" ]
             , a
-                [ onClick TogleMenu
+                [ onClick OpenContactPage
                 , css
                     [ margin (px 30)
                     , hover
@@ -256,9 +383,11 @@ footer =
 
 main : Program () Model Msg
 main =
-    Browser.element
-        { init = \_ -> init
+    Browser.application
+        { init = init
         , update = update
         , subscriptions = subscriptions
-        , view = view >> toUnstyled
+        , view = view
+        , onUrlRequest = LinkClicked
+        , onUrlChange = UrlChange
         }
