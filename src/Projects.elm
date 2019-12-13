@@ -1,4 +1,4 @@
-module Projects exposing (aboutText, projectOne, projectTwo)
+module Projects exposing (aboutText, astroCards, projectOne, projectTwo)
 
 import Color
 import Css exposing (..)
@@ -17,10 +17,11 @@ modalCss =
 
 
 projectOne messages =
-    div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15) ] ]
-            [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero, pointerEvents none ] ] []
+    div [ modalCss ]
+        [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -34) ], onClick messages.closeModal ] []
+        , div
+            [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15) ] ]
+            [ img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
             , img [ src "./heron/2.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
             , div [ css [ width (vw 46), maxWidth (vw 100), fontSize (px 18), color Color.paleYellow, marginLeft (vw 12), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
                 [ p [ css [] ] [ text "The name of the collection is HERON (a representative element for the Art Deco style and movement), including niche objects, gaining its main inspiration from Art Deco." ]
@@ -48,6 +49,26 @@ projectTwo messages =
                 [ p [ css [] ] [ text "New identity for INDAGRA SRL, a company specialized in passive fire protection. For their brand, Indagra wanted an identity that was minimal, professional and bold. \n The aim was to create something bespoke as a reflection of the service level that they provide to their clients, being one of the best companies from their field of activity in Romania. \nThe symbol is a representation of a flame, with flat design style and modern gradients. The symbol is also a rethinked “i” letter, from Indagra." ]
                 ]
             , img [ src "./indagra/indagra7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
+            ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        ]
+
+
+astroCards messages =
+    div [ modalCss, onClick messages.closeModal ]
+        [ div [ css [ width (vw 70), backgroundColor Color.black, marginLeft (vw 15) ] ]
+            [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
+            , img [ src "./astro/astro1.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./astro/astro2.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro3.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro4.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro5.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro6.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro8.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro9.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro10.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro11.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
             ]
         , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
