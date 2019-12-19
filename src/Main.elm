@@ -161,13 +161,13 @@ beaLogo model =
     div [ css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
         [ div [ onClick TogleMenu ]
             [ if model.menuOn then
-                img [ src "./cross.png", css [ height (vmin 4), width (vmin 4), marginRight (vmin 25) ] ] []
+                img [ src "./cross.png", css [ height (vmin 4), width (vmin 4) ] ] []
 
               else
-                img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), marginRight (vmin 25) ] ] []
+                img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4) ] ] []
             ]
-        , img [ src "./bea_logo.png", css [ margin (vmin 15), height (vmin 60), width (vmin 60), maxWidth (vw 100) ] ] []
-        , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), marginLeft (vmin 25), visibility hidden ] ] []
+        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 10, marginRight <| vw 15, marginBottom <| vh 10, height (vmin 60), width (vmin 60), maxWidth (vw 100) ] ] []
+        , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), visibility hidden ] ] []
         ]
 
 
@@ -176,9 +176,9 @@ projectTable model =
     div [ css [ maxWidth (vw 100), fontSize (px 0) ], id "projects" ]
         [ project model "./heron/heron_landing.png" "HERON COLLECTION" 1
         , project model "./indagra/indagra_landing.png" "INDAGRA" 2
-        , project model "./astro_main.png" "ASTRO CARDS" 3
-        , project model "./pink.jpg" "4 project" 4
-        , project model "./blue.jpg" "5 project" 5
+        , project model "./astro/astro_main.png" "ASTRO CARDS" 3
+        , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4
+        , project model "./plasmo/plasmo_main.png" "PLASMO LIFE" 5
         , project model "./gray.jpeg" "6 project" 6
         , project model "./pink.jpg" "7 project" 7
         ]
@@ -212,6 +212,16 @@ projectModal model =
 
     else if model.openedModal == 3 then
         Projects.astroCards
+            { closeModal = CloseModal
+            }
+
+    else if model.openedModal == 4 then
+        Projects.bosch
+            { closeModal = CloseModal
+            }
+
+    else if model.openedModal == 5 then
+        Projects.plasmo
             { closeModal = CloseModal
             }
 

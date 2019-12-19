@@ -43,6 +43,15 @@ paleYellow =
     rgb 255 251 214
 
 
+boschBlue : Color
+boschBlue =
+    rgb 26 35 251
+
+plasmoBlue : Color 
+plasmoBlue = 
+    rgb 17 17 17
+
+
 vividRed : Color
 vividRed =
     rgb 224 67 101
