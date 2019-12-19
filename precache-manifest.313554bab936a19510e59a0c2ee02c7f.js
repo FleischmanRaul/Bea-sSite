@@ -304,7 +304,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/indagra/indagra_landing.png"
   },
   {
-    "revision": "6b2a9f41a47ffd00e577cd490c66fe08",
+    "revision": "5cea47b20e6bb7d5875f0ed6d9fd6381",
     "url": "/Bea-sSite/index.html"
   },
   {
@@ -376,12 +376,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/plasmo/plasmo_main.png"
   },
   {
-    "revision": "86b75c341db07795d2f1",
+    "revision": "4f64049b6cc34b427921",
     "url": "/Bea-sSite/static/css/main.a15c6959.chunk.css"
   },
   {
-    "revision": "86b75c341db07795d2f1",
-    "url": "/Bea-sSite/static/js/main.86b75c34.chunk.js"
+    "revision": "4f64049b6cc34b427921",
+    "url": "/Bea-sSite/static/js/main.4f64049b.chunk.js"
   },
   {
     "revision": "adea670f89df284908a8",
