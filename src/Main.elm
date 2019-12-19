@@ -166,7 +166,7 @@ beaLogo model =
               else
                 img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4) ] ] []
             ]
-        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 10, marginRight <| vw 15, marginBottom <| vh 10, height (vmin 60), width (vmin 60), maxWidth (vw 100) ] ] []
+        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 10, marginRight <| vw 15, marginBottom <| vh 20, height (vmin 60), width (vmin 60), maxWidth (vw 100) ] ] []
         , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), visibility hidden ] ] []
         ]
 
@@ -194,19 +194,19 @@ project model picturePath description id =
                 ]
 
           else
-            p [] []
+            p [] [ ]
         ]
 
 
 projectModal : Model -> Html Msg
 projectModal model =
     if model.openedModal == 1 then
-        Projects.projectOne
+        Projects.heron
             { closeModal = CloseModal
             }
 
     else if model.openedModal == 2 then
-        Projects.projectTwo
+        Projects.indagra
             { closeModal = CloseModal
             }
 

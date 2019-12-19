@@ -1,4 +1,4 @@
-module Projects exposing (aboutText, astroCards, bosch, projectOne, projectTwo, plasmo)
+module Projects exposing (aboutText, astroCards, bosch, heron, indagra, plasmo)
 
 import Color
 import Css exposing (..)
@@ -16,12 +16,12 @@ modalCss =
     css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden, pointerEvents auto, fontSize (px 0), lineHeight (px 0) ]
 
 
-projectOne messages =
-    div [ modalCss ]
+heron messages =
+    div [ modalCss, onClick messages.closeModal ]
         [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -34) ], onClick messages.closeModal ] []
         , div
-            [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15) ] ]
-            [ img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15)] ]
+            [ img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero, pointerEvents none ] ] []
             , img [ src "./heron/2.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
             , div [ css [ width (vw 46), maxWidth (vw 100), fontSize (px 18), color Color.paleYellow, marginLeft (vw 12), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
                 [ p [ css [] ] [ text "The name of the collection is HERON (a representative element for the Art Deco style and movement), including niche objects, gaining its main inspiration from Art Deco." ]
@@ -37,7 +37,7 @@ projectOne messages =
         ]
 
 
-projectTwo messages =
+indagra messages =
     div [ modalCss, onClick messages.closeModal ]
         [ div [ css [ width (vw 70), backgroundColor Color.vividRed, marginLeft (vw 15) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
@@ -105,7 +105,7 @@ plasmo messages =
             , img [ src "./plasmo/plasmo3.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
             , img [ src "./plasmo/plasmo4.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
             , p [ css [ width (vw 46), color Color.white, fontSize <| px 16, marginLeft (vw 12), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "Plasmo Life is a company that is specialized in Plasma Lifting, which is a non-invasive aesthetic answer to surgical lifting procedures, it activates skin cells by application of own plasma. Plasma biomaterial contains unique combination of highly effective substances – growth factors, thrombocytes, leukocyte and stem cells. They activate new cell production and regenerate damaged cells." ]
-            , p [ css [ width (vw 46), color Color.white, fontSize <| px 16, marginLeft (vw 12), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The goal was to create a visual identity system that is inspired by the blood cells and plasma, yet is not scary and inspires trust and professionalism." ]
+            , p [ css [ width (vw 46), color Color.white, fontSize <| px 16, marginLeft (vw 12), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The goal was to create a visual identity system that is inspired by the blood cells and plasma, yet is not scary and inspires trust and professionalism." ]
             , img [ src "./plasmo/plasmo6.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
             , img [ src "./plasmo/plasmo7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
             , img [ src "./plasmo/plasmo8.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []

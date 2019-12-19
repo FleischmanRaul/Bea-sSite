@@ -1,0 +1,13 @@
+{
+    "short_name": "Elm App",
+    "name": "Create Elm App Sample",
+    "icons": [{
+        "src": "bea_logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }],
+    "start_url": "./index.html",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}
