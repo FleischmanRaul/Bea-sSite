@@ -1,4 +1,4 @@
-module Projects exposing (aboutText, astroCards, bosch, heron, indagra, plasmo, dochia)
+module Projects exposing ( astroCards, bosch, heron, indagra, plasmo, dochia, about)
 
 import Color
 import Css exposing (..)
@@ -127,6 +127,16 @@ dochia messages =
             , p [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "Casa lu’ Dochia is a bed and breakfast located in Breb, a small village in Transylvania, Romania. It is characterized by rustic touches and traditional elements and its rural atmosphere. It gained its name from an old lady, called Dochia, who owned the house, where this small business is, before she died." ]
             , img [ src "./dochia/dochia7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
             , img [ src "./dochia/dochia8.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        ]
+
+about messages =
+    div [ modalCss, onClick messages.closeModal ]
+        [ div [ css [ width (vw 70), backgroundColor Color.black, color Color.white, marginLeft (vw 15) ] ]
+            [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
+            , img [ src "./blue.jpg", css [ width (vw 20), maxWidth (vw 100), margin <| vw 5, float left ] ] []
+            , p [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ aboutText ]
             ]
         , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]

@@ -131,7 +131,6 @@ view model =
         , beaLogo model
         , projectTable model
         , projectModal model
-        , about model
         , contact model
         , footer
         ]
@@ -165,7 +164,7 @@ beaLogo model =
               else
                 img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4) ] ] []
             ]
-        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 10, marginRight <| vw 15, marginBottom <| vh 20, height (vmin 60), width (vmin 60), maxWidth (vw 100) ] ] []
+        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 10, marginRight <| vw 15, marginBottom <| vh 20, height (vmin 60), width (vmin 60), maxWidth (vw 100) ], onClick <| OpenModal 7 ] []
         , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), visibility hidden ] ] []
         ]
 
@@ -179,9 +178,9 @@ projectTable model =
         , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4
         , project model "./plasmo/plasmo_main.png" "PLASMO LIFE" 5
         , project model "./dochia/dochia_main.png" "CASA LU' DOCHIA" 6
-        , project model "./gray.jpeg" "6 project" 7
-        , project model "./pink.jpg" "7 project" 8
-        , project model "./blue.jpg" "9 project" 9
+        , project model "./gray.jpeg" "6 project" 8
+        , project model "./pink.jpg" "7 project" 9
+        , project model "./blue.jpg" "9 project" 10
         ]
 
 
@@ -231,15 +230,15 @@ projectModal model =
             { closeModal = CloseModal
             }
 
+    else if model.openedModal == 7 then
+        Projects.about
+            { closeModal = CloseModal
+            }
+
     else
         div [] []
 
 
-about : Model -> Html Msg
-about model =
-    div
-        [ css [ margin (vw 12), width (vw 76), lineHeight (Css.em 2), fontSize (px 18) ], id "about" ]
-        [ Projects.aboutText ]
 
 
 menu : Model -> Html.Styled.Html Msg
@@ -276,7 +275,7 @@ menu model =
             ]
             [ text "PROJECTS" ]
         , a
-            [ onClick <| JumpTo "about"
+            [ onClick <| OpenModal 7
             , css
                 [ margin (px 30)
                 , hover
