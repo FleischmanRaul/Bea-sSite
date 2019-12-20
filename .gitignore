@@ -5,5 +5,5 @@ elm-stuff/
 repl-temp-*
 
 node_modules
-
+build/
 elm.js

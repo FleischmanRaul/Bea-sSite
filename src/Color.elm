@@ -51,6 +51,9 @@ plasmoBlue : Color
 plasmoBlue = 
     rgb 17 17 17
 
+dochiaPurple : Color
+dochiaPurple = 
+    rgb 96 96 166
 
 vividRed : Color
 vividRed =

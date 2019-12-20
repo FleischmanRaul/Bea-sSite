@@ -140,8 +140,7 @@ view model =
 contact : Model -> Html Msg
 contact model =
     div [ id "contact", css [ displayFlex, alignItems center, justifyContent center, flexDirection column, margin (vmin 10) ] ]
-        [ div [] [ text "My Number: +40 742 540 151" ]
-        , div
+        [ div
             [ css
                 [ width <| px 150
                 , height <| px 20
@@ -179,8 +178,10 @@ projectTable model =
         , project model "./astro/astro_main.png" "ASTRO CARDS" 3
         , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4
         , project model "./plasmo/plasmo_main.png" "PLASMO LIFE" 5
-        , project model "./gray.jpeg" "6 project" 6
-        , project model "./pink.jpg" "7 project" 7
+        , project model "./dochia/dochia_main.png" "CASA LU' DOCHIA" 6
+        , project model "./gray.jpeg" "6 project" 7
+        , project model "./pink.jpg" "7 project" 8
+        , project model "./blue.jpg" "9 project" 9
         ]
 
 
@@ -189,7 +190,7 @@ project model picturePath description id =
     div [ css [ display inlineBlock, position relative, margin (px 2), height (vmax 30), width (vmax 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick <| OpenModal id ]
         [ img [ src picturePath, css [ margin zero, height (vmax 30), width (vmax 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
         , if model.hoveredPicture == id then
-            p [ css [ position absolute, backgroundColor Color.transparent, width (vmax 30), height (vmax 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 20), display Css.table ] ]
+            p [ css [ position absolute, backgroundColor Color.transparent, width (vmax 30), height (vmax 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
                 [ p [ css [ display tableCell, verticalAlign middle, fontWeight bold ] ] [ text description ]
                 ]
 
@@ -225,6 +226,11 @@ projectModal model =
             { closeModal = CloseModal
             }
 
+    else if model.openedModal == 6 then
+        Projects.dochia
+            { closeModal = CloseModal
+            }
+
     else
         div [] []
 
@@ -240,8 +246,8 @@ menu : Model -> Html.Styled.Html Msg
 menu model =
     div
         [ css
-            [ fontSize (px 24)
-            , paddingTop (px 20)
+            [ fontSize (px 20)
+            , paddingTop (vh 10)
             , if model.menuOn then
                 visibility visible
 
@@ -258,7 +264,7 @@ menu model =
                     ]
                 ]
             ]
-            [ text "Home" ]
+            [ text "HOME" ]
         , a
             [ onClick <| JumpTo "projects"
             , css
@@ -268,7 +274,7 @@ menu model =
                     ]
                 ]
             ]
-            [ text "Projects" ]
+            [ text "PROJECTS" ]
         , a
             [ onClick <| JumpTo "about"
             , css
@@ -278,7 +284,7 @@ menu model =
                     ]
                 ]
             ]
-            [ text "About" ]
+            [ text "ABOUT" ]
         , a
             [ onClick <| JumpTo "contact"
             , css
@@ -288,7 +294,7 @@ menu model =
                     ]
                 ]
             ]
-            [ text "Contact" ]
+            [ text "CONTACT" ]
         ]
 
 
