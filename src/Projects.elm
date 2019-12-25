@@ -1,4 +1,4 @@
-module Projects exposing ( astroCards, bosch, heron, indagra, plasmo, dochia, about)
+module Projects exposing ( astroCards, bosch, heron, indagra, plasmo, dochia, about, openModal)
 
 import Color
 import Css exposing (..)
@@ -16,130 +16,158 @@ modalCss =
     css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden, pointerEvents auto, fontSize (px 0), lineHeight (px 0) ]
 
 
-heron messages =
+openModal messages id onMobile = 
+    let
+        w = if onMobile then 
+                100
+            else 
+                80
+    in
+        if id == 1 then
+            heron messages w
+        else if id == 2 then
+            indagra messages w
+        else if id == 3 then
+            astroCards messages w
+        else if id == 4 then
+            bosch messages w
+        else if id == 5 then
+            plasmo messages w
+        else if id == 6 then
+            dochia messages w
+        else if id == 7 then
+            about messages w
+        else if id == 8 then
+            about messages w
+        else if id == 9 then
+            about messages w
+        else if id == 10 then
+            about messages w
+        else
+            div [][]
+
+heron messages w =
     div [ modalCss, onClick messages.closeModal ]
-        [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -34) ], onClick messages.closeModal ] []
+        [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -46) ], onClick messages.closeModal ] []
         , div
-            [ css [ width (vw 70), backgroundColor Color.heronBlack, marginLeft (vw 15)] ]
-            [ img [ src "./heron/1.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero, pointerEvents none ] ] []
-            , img [ src "./heron/2.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , div [ css [ width (vw 58), maxWidth (vw 100), fontSize (vw 1), color Color.paleYellow, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
+            [ css [ width (vw w), backgroundColor Color.heronBlack, marginLeft (vw <| (100-w)/2 )] ]
+            [ img [ src "./heron/1.jpg", css [ width (vw w), maxWidth (vw 100), margin zero, pointerEvents none ] ] []
+            , img [ src "./heron/2.jpg", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , div [ css [ width (vw <| w-12), maxWidth (vw 100), fontSize (vw 1), color Color.paleYellow, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
                 [ p [ css [] ] [ text "The name of the collection is HERON (a representative element for the Art Deco style and movement), including niche objects, gaining its main inspiration from Art Deco." ]
                 , p [ css [] ] [ text "The collection brings back its items from obsolescence, and gives them a design purpose, but a functional one aswell.  The collection consists of 4 objects: a chaise lounge, a bar cart, a set of auxiliary tables and a high stand for plants. The approached shapes recreate the Art Deco style through linear geometry, but breaks the symmetry, characteristic for it, while preserving its well-known elegance. High-quality materials have been used, combining Art Deco with contemporary notes, the collection's pieces getting a modern and stylish feel." ]
                 ]
-            , img [ src "./heron/4.jpg", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./heron/5.png", css [ width (vw 70), maxWidth (vw 100), marginTop (vh 15) ] ] []
-            , img [ src "./heron/6.png", css [ width (vw 70), maxWidth (vw 100), marginTop (vh 15) ] ] []
-            , img [ src "./heron/7.jpg", css [ width (vw 70), maxWidth (vw 100), marginTop (vh 15), marginBottom zero ] ] []
-            , img [ src "./heron/8.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./heron/4.jpg", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./heron/5.png", css [ width (vw w), maxWidth (vw 100), marginTop (vmin 5) ] ] []
+            , img [ src "./heron/6.png", css [ width (vw w), maxWidth (vw 100), marginTop (vmin 5) ] ] []
+            , img [ src "./heron/7.jpg", css [ width (vw w), maxWidth (vw 100), marginTop (vmin 5), marginBottom zero ] ] []
+            , img [ src "./heron/8.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
             ]
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow, fontSize (px 12) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
 
 
-indagra messages =
+indagra messages w =
     div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.vividRed, marginLeft (vw 15) ] ]
+        [ div [ css [ width (vw w), backgroundColor Color.vividRed, marginLeft (vw <| (100-w)/2) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./indagra/indagra1.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./indagra/indagra2.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./indagra/indagra4.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./indagra/indagra5.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , div [ css [ width (vw 58), maxWidth (vw 100), fontSize (vw 1), color Color.white, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
+            , img [ src "./indagra/indagra1.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./indagra/indagra2.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./indagra/indagra4.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./indagra/indagra5.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , div [ css [ width (vw <| w-12), maxWidth (vw 100), fontSize (vw 1), color Color.white, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
                 [ p [ css [] ] [ text "New identity for INDAGRA SRL, a company specialized in passive fire protection. For their brand, Indagra wanted an identity that was minimal, professional and bold.   The aim was to create something bespoke as a reflection of the service level that they provide to their clients, being one of the best companies from their field of activity in Romania.  The symbol is a representation of a flame, with flat design style and modern gradients. The symbol is also a rethinked “i” letter, from Indagra." ]
                 ]
-            , img [ src "./indagra/indagra7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
+            , img [ src "./indagra/indagra7.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
             ]
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+            , div [ css [ paddingTop <| Css.em 1, fontSize (px 12), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
 
 
-astroCards messages =
+astroCards messages w =
     div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.black, marginLeft (vw 15) ] ]
+        [ div [ css [ width (vw w), backgroundColor Color.black, marginLeft (vw <| (100-w)/2) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./astro/astro1.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./astro/astro2.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro3.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro4.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro5.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro6.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro8.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro9.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro10.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./astro/astro11.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
+            , img [ src "./astro/astro1.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./astro/astro2.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro3.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro4.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro5.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro6.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro7.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro8.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro9.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro10.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./astro/astro11.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
             ]
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        , div [ css [ paddingTop <| Css.em 1, fontSize (px 12), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
 
 
-bosch messages =
+bosch messages w =
     div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.boschBlue, marginLeft (vw 15) ] ]
+        [ div [ css [ width (vw w), backgroundColor Color.boschBlue, marginLeft (vw <| (100-w)/2 ) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./bosch/bosch1.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./bosch/bosch2.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , div [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "Wall art collaboration project made for BOSCH Romania. I created 3 large mural illustrations for the IT office of BOSCH in Cluj-Napoca.  The main illustration represents a gigantic computer screen in a paralel fantasy universe, where the principal character (computer scientist), hunts down the bug monsters that are eating the code. Each and every detail refers to computer science (for example the sun is a wiFi planet, the trees have mother board branches and the clouds are storage spaces, collecting information from the imaginary IT universe). I wanted to create an atmosphere that captures the dynamism of the company ecosystem with some dedicated illustrations and a vivid color palette, showing that the IT life is not that boring as it seems." ]
-            , img [ src "./bosch/bosch4.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./bosch/bosch5.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , div [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The second wall illustration shows the importance of professionals and teamwork, which is the base of the company’s core values. Together, they build a world of IOT, where everything is connected. The details refer to the IT world also here (the stars are numbers of the binary ?)" ]
-            , img [ src "./bosch/bosch7.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , div [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The third illustration is a reinterpretation of Michelangelo’s  famous fresco painting, The Creation of Adam. It illustrates the creation of the machines, and the human is shown as God, the creator." ]
-            , img [ src "./bosch/bosch9.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./bosch/bosch10.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./bosch/bosch11.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./bosch/bosch12.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./bosch/bosch13.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
+            , img [ src "./bosch/bosch1.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./bosch/bosch2.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , div [ css [ width (vw <| w-12), maxWidth (vw 100), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "Wall art collaboration project made for BOSCH Romania. I created 3 large mural illustrations for the IT office of BOSCH in Cluj-Napoca.  The main illustration represents a gigantic computer screen in a paralel fantasy universe, where the principal character (computer scientist), hunts down the bug monsters that are eating the code. Each and every detail refers to computer science (for example the sun is a wiFi planet, the trees have mother board branches and the clouds are storage spaces, collecting information from the imaginary IT universe). I wanted to create an atmosphere that captures the dynamism of the company ecosystem with some dedicated illustrations and a vivid color palette, showing that the IT life is not that boring as it seems." ]
+            , img [ src "./bosch/bosch4.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./bosch/bosch5.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , div [ css [ width (vw <| w-12), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The second wall illustration shows the importance of professionals and teamwork, which is the base of the company’s core values. Together, they build a world of IOT, where everything is connected. The details refer to the IT world also here (the stars are numbers of the binary ?)" ]
+            , img [ src "./bosch/bosch7.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , div [ css [ width (vw <| w-12), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The third illustration is a reinterpretation of Michelangelo’s  famous fresco painting, The Creation of Adam. It illustrates the creation of the machines, and the human is shown as God, the creator." ]
+            , img [ src "./bosch/bosch9.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./bosch/bosch10.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./bosch/bosch11.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./bosch/bosch12.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./bosch/bosch13.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
             ]
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        , div [ css [ paddingTop <| Css.em 1, fontSize (px 12), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
 
 
-plasmo messages =
+plasmo messages w =
     div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.black, marginLeft (vw 15) ] ]
+        [ div [ css [ width (vw w), backgroundColor Color.black, marginLeft (vw <| (100-w)/2 ) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./plasmo/plasmo1.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./plasmo/plasmo2.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./plasmo/plasmo3.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./plasmo/plasmo4.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , p [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), lineHeight (Css.em 2) ] ] [ text "Plasmo Life is a company that is specialized in Plasma Lifting, which is a non-invasive aesthetic answer to surgical lifting procedures, it activates skin cells by application of own plasma. Plasma biomaterial contains unique combination of highly effective substances – growth factors, thrombocytes, leukocyte and stem cells. They activate new cell production and regenerate damaged cells." ]
-            , p [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The goal was to create a visual identity system that is inspired by the blood cells and plasma, yet is not scary and inspires trust and professionalism." ]
-            , img [ src "./plasmo/plasmo6.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./plasmo/plasmo7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./plasmo/plasmo8.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./plasmo/plasmo9.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./plasmo/plasmo10.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./plasmo/plasmo11.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
+            , img [ src "./plasmo/plasmo1.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./plasmo/plasmo2.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./plasmo/plasmo3.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./plasmo/plasmo4.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , p [ css [ width (vw <| w-12), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), lineHeight (Css.em 2) ] ] [ text "Plasmo Life is a company that is specialized in Plasma Lifting, which is a non-invasive aesthetic answer to surgical lifting procedures, it activates skin cells by application of own plasma. Plasma biomaterial contains unique combination of highly effective substances – growth factors, thrombocytes, leukocyte and stem cells. They activate new cell production and regenerate damaged cells." ]
+            , p [ css [ width (vw <| w-12), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The goal was to create a visual identity system that is inspired by the blood cells and plasma, yet is not scary and inspires trust and professionalism." ]
+            , img [ src "./plasmo/plasmo6.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./plasmo/plasmo7.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./plasmo/plasmo8.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./plasmo/plasmo9.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./plasmo/plasmo10.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./plasmo/plasmo11.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginBottom zero ] ] []
             ]
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        , div [ css [ paddingTop <| Css.em 1, fontSize (px 12), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
 
-dochia messages =
+dochia messages w =
     div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.dochiaPurple, marginLeft (vw 15) ] ]
+        [ div [ css [ width (vw w), backgroundColor Color.dochiaPurple, marginLeft (vw <| (100-w)/2 ) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./dochia/dochia1.png", css [ width (vw 70), maxWidth (vw 100), margin zero ] ] []
-            , img [ src "./dochia/dochia2.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./dochia/dochia3.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./dochia/dochia4.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , p [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "Casa lu’ Dochia is a bed and breakfast located in Breb, a small village in Transylvania, Romania. It is characterized by rustic touches and traditional elements and its rural atmosphere. It gained its name from an old lady, called Dochia, who owned the house, where this small business is, before she died." ]
-            , img [ src "./dochia/dochia7.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-            , img [ src "./dochia/dochia8.png", css [ width (vw 70), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./dochia/dochia1.png", css [ width (vw w), maxWidth (vw 100), margin zero ] ] []
+            , img [ src "./dochia/dochia2.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./dochia/dochia3.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./dochia/dochia4.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , p [ css [ width (vw <| w-12), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "Casa lu’ Dochia is a bed and breakfast located in Breb, a small village in Transylvania, Romania. It is characterized by rustic touches and traditional elements and its rural atmosphere. It gained its name from an old lady, called Dochia, who owned the house, where this small business is, before she died." ]
+            , img [ src "./dochia/dochia7.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+            , img [ src "./dochia/dochia8.png", css [ width (vw w), maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
             ]
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        , div [ css [ paddingTop <| Css.em 1, fontSize (px 12), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
 
-about messages =
+about messages w =
     div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width (vw 70), backgroundColor Color.black, color Color.white, marginLeft (vw 15) ] ]
+        [ div [ css [ width (vw w), backgroundColor Color.black, color Color.white, marginLeft (vw <| (100-w)/2) ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
             , img [ src "./blue.jpg", css [ width (vw 20), maxWidth (vw 100), margin <| vw 5, float left ] ] []
-            , p [ css [ width (vw 58), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ aboutText ]
-            ]
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
-        ]
+            , p [ css [ width (vw <| w-12), color Color.white, fontSize <| vw 1, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ aboutText ]
+            ] ]
 
 aboutText : Html msg
 aboutText =

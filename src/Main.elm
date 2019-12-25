@@ -1,12 +1,14 @@
 module Main exposing (..)
 
 import Browser
+import Browser.Events
 import Browser.Navigation as Nav
+import Browser.Dom as Dom
 import Color
 import Css exposing (..)
 import Ease
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, href, id, src, style)
+import Html.Styled.Attributes exposing (css, id, src, style)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
 import SmoothScroll exposing (Config, scrollToWithOptions)
@@ -31,6 +33,9 @@ type alias Model =
     , hoveredPicture : Int
     , openedModal : Int
     , bodyCss : List Style
+    , width : Int 
+    , height : Int
+    , mobile : Bool
     }
 
 
@@ -41,14 +46,19 @@ init =
       , hoveredPicture = 0
       , openedModal = 0
       , bodyCss = [ cursor crosshair, overflow hidden, overflowY hidden ]
+      , width = 0
+      , height = 0
+      , mobile = False
       }
-    , Cmd.none
+    , Task.perform windwoResizeFromVp Dom.getViewport
     )
 
 
-menuCss =
-    hidden
-
+windwoResizeFromVp : Dom.Viewport -> Msg
+windwoResizeFromVp vp =
+    WindowResize
+        (floor vp.viewport.width)
+        (floor vp.viewport.height)
 
 type Msg
     = TogleMenu
@@ -59,6 +69,7 @@ type Msg
     | DoNothing
     | JumpTo String
     | SendMail
+    | WindowResize Int Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -104,6 +115,11 @@ update msg model =
             , Nav.load "mailto:beaa.csaka@gmail.com"
             )
 
+        WindowResize w h ->
+            ( { model | height = h, width = w, mobile = (w < 600) }
+            , Cmd.none
+            )
+
 
 
 -- SUBSCRIPTIONS
@@ -111,7 +127,7 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Browser.Events.onResize WindowResize
 
 
 
@@ -164,7 +180,7 @@ beaLogo model =
               else
                 img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4) ] ] []
             ]
-        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 10, marginRight <| vw 15, marginBottom <| vh 20, height (vmin 60), width (vmin 60), maxWidth (vw 100) ], onClick <| OpenModal 7 ] []
+        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 15, marginRight <| vw 15, marginBottom <| vh 15, height (vmin 60), width (vmin 60), maxWidth (vw 100) ], onClick <| OpenModal 7 ] []
         , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), visibility hidden ] ] []
         ]
 
@@ -186,57 +202,22 @@ projectTable model =
 
 project : Model -> String -> String -> Int -> Html Msg
 project model picturePath description id =
-    div [ css [ display inlineBlock, position relative, margin (px 2), height (vmax 30), width (vmax 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick <| OpenModal id ]
-        [ img [ src picturePath, css [ margin zero, height (vmax 30), width (vmax 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
+    div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick <| OpenModal id ]
+        [ img [ src picturePath, css [ margin zero, height (vw 30), width (vw 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
         , if model.hoveredPicture == id then
-            p [ css [ position absolute, backgroundColor Color.transparent, width (vmax 30), height (vmax 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
+            p [ css [ position absolute, backgroundColor Color.transparent, width (vw 30), height (vw 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
                 [ p [ css [ display tableCell, verticalAlign middle, fontWeight bold ] ] [ text description ]
                 ]
 
           else
-            p [] [ ]
+            p [] []
         ]
 
 
 projectModal : Model -> Html Msg
-projectModal model =
-    if model.openedModal == 1 then
-        Projects.heron
-            { closeModal = CloseModal
-            }
-
-    else if model.openedModal == 2 then
-        Projects.indagra
-            { closeModal = CloseModal
-            }
-
-    else if model.openedModal == 3 then
-        Projects.astroCards
-            { closeModal = CloseModal
-            }
-
-    else if model.openedModal == 4 then
-        Projects.bosch
-            { closeModal = CloseModal
-            }
-
-    else if model.openedModal == 5 then
-        Projects.plasmo
-            { closeModal = CloseModal
-            }
-
-    else if model.openedModal == 6 then
-        Projects.dochia
-            { closeModal = CloseModal
-            }
-
-    else if model.openedModal == 7 then
-        Projects.about
-            { closeModal = CloseModal
-            }
-
-    else
-        div [] []
+projectModal model = Projects.openModal { closeModal = CloseModal } 
+            model.openedModal
+            model.mobile
 
 
 
@@ -257,7 +238,7 @@ menu model =
         [ a
             [ onClick <| JumpTo "projects"
             , css
-                [ margin (px 30)
+                [ margin (vw 3)
                 , hover
                     [ textDecorationLine underline
                     ]
@@ -267,7 +248,7 @@ menu model =
         , a
             [ onClick <| JumpTo "projects"
             , css
-                [ margin (px 30)
+                [ margin (vw 3)
                 , hover
                     [ textDecorationLine underline
                     ]
@@ -277,7 +258,7 @@ menu model =
         , a
             [ onClick <| OpenModal 7
             , css
-                [ margin (px 30)
+                [ margin (vw 3)
                 , hover
                     [ textDecorationLine underline
                     ]
@@ -287,7 +268,7 @@ menu model =
         , a
             [ onClick <| JumpTo "contact"
             , css
-                [ margin (px 30)
+                [ margin (vw 3)
                 , hover
                     [ textDecorationLine underline
                     ]

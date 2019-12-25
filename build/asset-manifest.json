@@ -1,7 +1,7 @@
 {
   "main.css": "/Bea-sSite/static/css/main.a15c6959.chunk.css",
-  "main.js": "/Bea-sSite/static/js/main.4f64049b.chunk.js",
-  "main.js.map": "/Bea-sSite/static/js/main.4f64049b.chunk.js.map",
+  "main.js": "/Bea-sSite/static/js/main.18518f28.chunk.js",
+  "main.js.map": "/Bea-sSite/static/js/main.18518f28.chunk.js.map",
   "runtime~main.js": "/Bea-sSite/static/js/runtime~main.adea670f.js",
   "runtime~main.js.map": "/Bea-sSite/static/js/runtime~main.adea670f.js.map",
   "vendors~main.js": "/Bea-sSite/static/js/vendors~main.3ca81432.chunk.js",
@@ -60,6 +60,15 @@
   "bosch/bosch_main.png": "/Bea-sSite/bosch/bosch_main.png",
   "bosch_main.png": "/Bea-sSite/bosch_main.png",
   "cross.png": "/Bea-sSite/cross.png",
+  "dochia/dochia1.png": "/Bea-sSite/dochia/dochia1.png",
+  "dochia/dochia2.png": "/Bea-sSite/dochia/dochia2.png",
+  "dochia/dochia3.png": "/Bea-sSite/dochia/dochia3.png",
+  "dochia/dochia4.png": "/Bea-sSite/dochia/dochia4.png",
+  "dochia/dochia5.png": "/Bea-sSite/dochia/dochia5.png",
+  "dochia/dochia6.png": "/Bea-sSite/dochia/dochia6.png",
+  "dochia/dochia7.png": "/Bea-sSite/dochia/dochia7.png",
+  "dochia/dochia8.png": "/Bea-sSite/dochia/dochia8.png",
+  "dochia/dochia_main.png": "/Bea-sSite/dochia/dochia_main.png",
   "favicon.ico": "/Bea-sSite/favicon.ico",
   "gray.jpeg": "/Bea-sSite/gray.jpeg",
   "hamburger.png": "/Bea-sSite/hamburger.png",
@@ -87,7 +96,6 @@
   "logo.svg": "/Bea-sSite/logo.svg",
   "manifest.json": "/Bea-sSite/manifest.json",
   "pink.jpg": "/Bea-sSite/pink.jpg",
-  "plasmo/plasmo visual.png": "/Bea-sSite/plasmo/plasmo visual.png",
   "plasmo/plasmo1.png": "/Bea-sSite/plasmo/plasmo1.png",
   "plasmo/plasmo10.png": "/Bea-sSite/plasmo/plasmo10.png",
   "plasmo/plasmo11.png": "/Bea-sSite/plasmo/plasmo11.png",
@@ -101,5 +109,5 @@
   "plasmo/plasmo8.png": "/Bea-sSite/plasmo/plasmo8.png",
   "plasmo/plasmo9.png": "/Bea-sSite/plasmo/plasmo9.png",
   "plasmo/plasmo_main.png": "/Bea-sSite/plasmo/plasmo_main.png",
-  "precache-manifest.313554bab936a19510e59a0c2ee02c7f.js": "/Bea-sSite/precache-manifest.313554bab936a19510e59a0c2ee02c7f.js"
+  "precache-manifest.534ee4e1cc26c5b73333b6472bde4e8d.js": "/Bea-sSite/precache-manifest.534ee4e1cc26c5b73333b6472bde4e8d.js"
 }
