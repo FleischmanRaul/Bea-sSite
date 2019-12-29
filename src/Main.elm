@@ -180,7 +180,7 @@ beaLogo model =
               else
                 img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4) ] ] []
             ]
-        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 15, marginRight <| vw 15, marginBottom <| vh 15, height (vmin 60), width (vmin 60), maxWidth (vw 100) ], onClick <| OpenModal 7 ] []
+        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 15, marginRight <| vw 15, marginBottom <| vh 15, height (vw 40), width (vw 40), maxWidth (vw 100) ], onClick <| OpenModal 7 ] []
         , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), visibility hidden ] ] []
         ]
 
