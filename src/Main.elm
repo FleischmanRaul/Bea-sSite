@@ -13,6 +13,7 @@ import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
 import SmoothScroll exposing (Config, scrollToWithOptions)
 import Task
+import Url
 
 
 
@@ -36,11 +37,13 @@ type alias Model =
     , width : Int 
     , height : Int
     , mobile : Bool
+    , key : Nav.Key
+    , url : Url.Url
     }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
+init flags url key =
     ( { menuOn = False
       , hoverOn = False
       , hoveredPicture = 0
@@ -49,6 +52,8 @@ init =
       , width = 0
       , height = 0
       , mobile = False
+      , key = key
+      , url = url
       }
     , Task.perform windwoResizeFromVp Dom.getViewport
     )
@@ -63,13 +68,15 @@ windwoResizeFromVp vp =
 type Msg
     = TogleMenu
     | CloseModal
-    | OpenModal Int
+    | OpenModal Int String
     | HoverOn Int
     | HoverOff
     | DoNothing
     | JumpTo String
     | SendMail
     | WindowResize Int Int
+    | LinkClicked Browser.UrlRequest
+    | UrlChanged Url.Url
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -81,13 +88,13 @@ update msg model =
             )
 
         CloseModal ->
-            ( { model | openedModal = 0, bodyCss = [ cursor crosshair ] }
-            , Cmd.none
+            ( { model | openedModal = 0, bodyCss = [ cursor crosshair, overflowY hidden ] }
+            , Nav.pushUrl model.key "/home"
             )
 
-        OpenModal id ->
-            ( { model | openedModal = id, bodyCss = [ cursor crosshair, height <| vh 100, overflow hidden, pointerEvents none ] }
-            , Cmd.none
+        OpenModal id url ->
+            ( { model | openedModal = id, bodyCss = [ cursor crosshair, height <| vh 100, overflow hidden, overflowY hidden, pointerEvents none ] }
+            , Nav.pushUrl model.key url
             )
 
         HoverOn pictureId ->
@@ -120,6 +127,18 @@ update msg model =
             , Cmd.none
             )
 
+        LinkClicked urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model, Nav.pushUrl model.key (Url.toString url) )
+
+                Browser.External href ->
+                    ( model, Cmd.none )
+
+        UrlChanged url ->
+            ( { model | url = url }
+            , Cmd.none
+            )
 
 
 -- SUBSCRIPTIONS
@@ -134,23 +153,29 @@ subscriptions model =
 ---- VIEW ----
 
 
-view : Model -> Html Msg
+view : Model -> Browser.Document Msg
 view model =
-    nav
-        [ css model.bodyCss
-        , style "-webkit-user-select" "none"
-        , style "-moz-user-select" "none"
-        , style "-ms-user-select" "none"
-        , style "user-select" "none"
-        ]
-        [ menu model
-        , beaLogo model
-        , projectTable model
-        , projectModal model
-        , contact model
-        , footer
-        ]
-
+    let
+        body =
+            nav
+                [ css model.bodyCss
+                , style "-webkit-user-select" "none"
+                , style "-moz-user-select" "none"
+                , style "-ms-user-select" "none"
+                , style "user-select" "none"
+                ]
+                [ menu model
+                , beaLogo model
+                , projectTable model
+                , projectModal model
+                , contact model
+                , footer
+                ]
+    in
+        { body = [ Html.Styled.toUnstyled body ]
+        , title = "Beata Csaka"
+        }
+     
 
 contact : Model -> Html Msg
 contact model =
@@ -180,7 +205,7 @@ beaLogo model =
               else
                 img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4) ] ] []
             ]
-        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 15, marginRight <| vw 15, marginBottom <| vh 15, height (vw 40), width (vw 40), maxWidth (vw 100) ], onClick <| OpenModal 7 ] []
+        , img [ src "./bea_logo.png", css [ marginLeft <| vw 15, marginTop <| vh 10, marginRight <| vw 15, marginBottom <| vh 10, height (vw 35), width (vw 35), maxWidth (vw 100) ], onClick <| OpenModal 7 "about"] []
         , img [ src "./hamburger.png", css [ height (vmin 4), width (vmin 4), visibility hidden ] ] []
         ]
 
@@ -188,25 +213,25 @@ beaLogo model =
 projectTable : Model -> Html Msg
 projectTable model =
     div [ css [ maxWidth (vw 100), fontSize (px 0) ], id "projects" ]
-        [ project model "./heron/heron_landing.png" "HERON COLLECTION" 1
-        , project model "./indagra/indagra_landing.png" "INDAGRA" 2
-        , project model "./astro/astro_main.png" "ASTRO CARDS" 3
-        , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4
-        , project model "./plasmo/plasmo_main.png" "PLASMO LIFE" 5
-        , project model "./dochia/dochia_main.png" "CASA LU' DOCHIA" 6
-        , project model "./gray.jpeg" "6 project" 8
-        , project model "./pink.jpg" "7 project" 9
-        , project model "./blue.jpg" "9 project" 10
+        [ project model "./heron/heron_landing.png" "HERON COLLECTION" 1 "heron"
+        , project model "./indagra/indagra_landing.png" "INDAGRA" 2 "indagra"
+        , project model "./astro/astro_main.png" "ASTRO CARDS" 3 "astro"
+        , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4 "bosch"
+        , project model "./plasmo/plasmo_main.png" "PLASMO LIFE" 5 "plasmo"
+        , project model "./dochia/dochia_main.png" "CASA LU' DOCHIA" 6 "dochia"
+        , project model "./gray.jpeg" "6 project" 8 "8"
+        , project model "./pink.jpg" "7 project" 9 "9"
+        , project model "./blue.jpg" "9 project" 10 "10"
         ]
 
 
-project : Model -> String -> String -> Int -> Html Msg
-project model picturePath description id =
-    div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick <| OpenModal id ]
+project : Model -> String -> String -> Int -> String -> Html Msg
+project model picturePath description id url =
+    div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick <| OpenModal id url]
         [ img [ src picturePath, css [ margin zero, height (vw 30), width (vw 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
         , if model.hoveredPicture == id then
             p [ css [ position absolute, backgroundColor Color.transparent, width (vw 30), height (vw 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
-                [ p [ css [ display tableCell, verticalAlign middle, fontWeight bold ] ] [ text description ]
+                [ p [ css [ display tableCell, verticalAlign middle ] ] [ text description ]
                 ]
 
           else
@@ -226,8 +251,9 @@ menu : Model -> Html.Styled.Html Msg
 menu model =
     div
         [ css
-            [ fontSize (px 20)
-            , paddingTop (vh 10)
+            [ fontSize (px 16)
+            , paddingTop (vh 5)
+            , letterSpacing (px 4)
             , if model.menuOn then
                 visibility visible
 
@@ -256,7 +282,7 @@ menu model =
             ]
             [ text "PROJECTS" ]
         , a
-            [ onClick <| OpenModal 7
+            [ onClick <| OpenModal 7 "about"
             , css
                 [ margin (vw 3)
                 , hover
@@ -286,15 +312,16 @@ footer =
         ]
 
 
-
 ---- PROGRAM ----
 
 
 main : Program () Model Msg
 main =
-    Browser.element
-        { init = \_ -> init
-        , update = update
-        , subscriptions = subscriptions
-        , view = view >> toUnstyled
-        }
+  Browser.application
+    { init = init
+    , view = view
+    , update = update
+    , subscriptions = subscriptions
+    , onUrlChange = UrlChanged
+    , onUrlRequest = LinkClicked
+    }

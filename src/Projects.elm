@@ -31,10 +31,10 @@ openModal messages id onMobile =
                 , textWidth = vw 88
                 }
             else 
-                { width = vw 80
+                { width = vw 90
                 , fontSize = px 16
-                , leftMargin = vw 10
-                , textWidth = vw 68
+                , leftMargin = vw 5
+                , textWidth = vw 78
                 }
         
     in
@@ -63,7 +63,7 @@ openModal messages id onMobile =
 
 modalFrame messages project = 
     div [ modalCss, onClick messages.closeModal ]
-        [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -46) ], onClick messages.closeModal ] []
+        [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -48) ], onClick messages.closeModal ] []
         , project
         , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow, fontSize (px 12) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
@@ -77,9 +77,9 @@ heron sizes =
             , p [ css [] ] [ text "The collection brings back its items from obsolescence, and gives them a design purpose, but a functional one aswell.  The collection consists of 4 objects: a chaise lounge, a bar cart, a set of auxiliary tables and a high stand for plants. The approached shapes recreate the Art Deco style through linear geometry, but breaks the symmetry, characteristic for it, while preserving its well-known elegance. High-quality materials have been used, combining Art Deco with contemporary notes, the collection's pieces getting a modern and stylish feel." ]
             ]
         , img [ src "./heron/4.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
-        , img [ src "./heron/5.png", css [ width sizes.width, maxWidth (vw 100), marginTop (vmin 5) ] ] []
-        , img [ src "./heron/6.png", css [ width sizes.width, maxWidth (vw 100), marginTop (vmin 5) ] ] []
-        , img [ src "./heron/7.jpg", css [ width sizes.width, maxWidth (vw 100), marginTop (vmin 5), marginBottom zero ] ] []
+        , img [ src "./heron/5.png", css [ width sizes.width, maxWidth (vw 100), marginTop (vw 4), marginBottom zero ] ] []
+        , img [ src "./heron/6.png", css [ width sizes.width, maxWidth (vw 100), marginTop (vw 4), marginBottom zero ] ] []
+        , img [ src "./heron/7.jpg", css [ width sizes.width, maxWidth (vw 100), marginTop (vw 4), marginBottom zero ] ] []
         , img [ src "./heron/8.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
         ]
 
