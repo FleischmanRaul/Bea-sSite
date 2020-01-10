@@ -164,8 +164,7 @@ view model =
                 , style "-ms-user-select" "none"
                 , style "user-select" "none"
                 ]
-                [ menu model
-                , beaLogo model
+                [ beaLogo model
                 , projectTable model
                 , projectModal model
                 , contact model
@@ -198,7 +197,8 @@ contact model =
 beaLogo : Model -> Html Msg
 beaLogo model =
     div [ css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
-        [ div [ onClick TogleMenu ]
+        [ menu model
+        , div [ onClick TogleMenu ]
             [ if model.menuOn then
                 img [ src "./cross.png", css [ height (vmin 4), width (vmin 4) ] ] []
 
@@ -254,6 +254,10 @@ menu model =
             [ fontSize (px 16)
             , paddingTop (vh 5)
             , letterSpacing (px 4)
+            , display tableCell
+            , verticalAlign middle
+            , textAlign right
+            , width <| vw 15
             , if model.menuOn then
                 visibility visible
 
@@ -261,40 +265,44 @@ menu model =
                 visibility hidden
             ]
         ]
-        [ a
+        [ p
             [ onClick <| JumpTo "projects"
             , css
-                [ margin (vw 3)
+                [ margin (vw 1)
+                , display inlineBlock
                 , hover
                     [ textDecorationLine underline
                     ]
                 ]
             ]
             [ text "HOME" ]
-        , a
+        , p
             [ onClick <| JumpTo "projects"
             , css
-                [ margin (vw 3)
+                [ margin (vw 1)
+                , display inlineBlock
                 , hover
                     [ textDecorationLine underline
                     ]
                 ]
             ]
             [ text "PROJECTS" ]
-        , a
+        , p
             [ onClick <| OpenModal 7 "about"
             , css
-                [ margin (vw 3)
+                [ margin (vw 1)
+                , display inlineBlock
                 , hover
                     [ textDecorationLine underline
                     ]
                 ]
             ]
             [ text "ABOUT" ]
-        , a
+        , p
             [ onClick <| JumpTo "contact"
             , css
-                [ margin (vw 3)
+                [ margin (vw 1)
+                , display inlineBlock
                 , hover
                     [ textDecorationLine underline
                     ]
