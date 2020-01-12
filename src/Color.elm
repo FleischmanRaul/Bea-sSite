@@ -5,7 +5,7 @@ import Css exposing (Color, rgb, rgba)
 
 black : Color
 black =
-    rgb 0 0 0
+    rgb 31 31 31
 
 
 transparent : Color
@@ -58,3 +58,15 @@ dochiaPurple =
 vividRed : Color
 vividRed =
     rgb 224 67 101
+
+iceBlue : Color
+iceBlue = 
+    rgb 159 178 220
+
+librisBlue : Color
+librisBlue = 
+    rgb 62 64 149
+
+inkBlue : Color
+inkBlue = 
+    rgb 111 122 210

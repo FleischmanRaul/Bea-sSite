@@ -1,4 +1,4 @@
-module Projects exposing ( astroCards, bosch, heron, indagra, plasmo, dochia, about, openModal)
+module Projects exposing (about, astroCards, bosch, dochia, heron, indagra, openModal, plasmo)
 
 import Color
 import Css exposing (..)
@@ -11,65 +11,80 @@ type alias Messages message =
     { closeModal : message
     }
 
-type alias Sizes =  
+
+type alias Sizes =
     { width : Css.Vw
     , fontSize : Css.Px
     , leftMargin : Css.Vw
     , textWidth : Css.Vw
-    } 
+    }
+
 
 modalCss =
     css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden, pointerEvents auto, fontSize (px 0), lineHeight (px 0) ]
 
 
-openModal messages id onMobile = 
+openModal messages id onMobile =
     let
-        sizes = if onMobile then 
+        sizes =
+            if onMobile then
                 { width = vw 100
                 , fontSize = px 12
                 , leftMargin = vw 0
                 , textWidth = vw 88
                 }
-            else 
+
+            else
                 { width = vw 90
                 , fontSize = px 16
                 , leftMargin = vw 5
                 , textWidth = vw 78
                 }
-        
     in
-        if id == 1 then
-            modalFrame messages <| heron sizes
-        else if id == 2 then
-            modalFrame messages <| indagra sizes
-        else if id == 3 then
-            modalFrame messages <| astroCards sizes
-        else if id == 4 then
-            modalFrame messages <| bosch sizes
-        else if id == 5 then
-            modalFrame messages <| plasmo sizes
-        else if id == 6 then
-            modalFrame messages <| dochia sizes
-        else if id == 7 then
-            about messages sizes
-        else if id == 8 then
-            about messages sizes
-        else if id == 9 then
-            about messages sizes
-        else if id == 10 then
-            about messages sizes
-        else
-            div [][]
+    if id == 1 then
+        modalFrame messages <| heron sizes
 
-modalFrame messages project = 
-    div [ modalCss, onClick messages.closeModal ]
-        [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -48) ], onClick messages.closeModal ] []
+    else if id == 2 then
+        modalFrame messages <| indagra sizes
+
+    else if id == 3 then
+        modalFrame messages <| astroCards sizes
+
+    else if id == 4 then
+        modalFrame messages <| bosch sizes
+
+    else if id == 5 then
+        modalFrame messages <| plasmo sizes
+
+    else if id == 6 then
+        modalFrame messages <| dochia sizes
+
+    else if id == 7 then
+        about messages sizes
+
+    else if id == 8 then
+        modalFrame messages <| crown sizes
+
+    else if id == 9 then
+        modalFrame messages <| ec sizes
+
+    else if id == 10 then
+        modalFrame messages <| exlibris sizes
+
+    else
+        div [] []
+
+
+modalFrame messages project =
+    div [ modalCss ]
+        [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -47.5) ], onClick messages.closeModal ] []
         , project
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.paleYellow, fontSize (px 12) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
         ]
 
+
 heron sizes =
-    div [ css [ width sizes.width, backgroundColor Color.heronBlack, marginLeft sizes.leftMargin] ]
+    div [ css [ width sizes.width, backgroundColor Color.heronBlack, marginLeft sizes.leftMargin ] ]
         [ img [ src "./heron/1.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, pointerEvents none ] ] []
         , img [ src "./heron/2.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
         , div [ css [ width sizes.textWidth, maxWidth (vw 100), fontSize sizes.fontSize, color Color.paleYellow, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ]
@@ -95,6 +110,7 @@ indagra sizes =
             ]
         , img [ src "./indagra/indagra7.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginBottom zero ] ] []
         ]
+
 
 astroCards sizes =
     div [ css [ width sizes.width, backgroundColor Color.black, marginLeft sizes.leftMargin ] ]
@@ -145,7 +161,7 @@ plasmo sizes =
         , img [ src "./plasmo/plasmo10.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
         , img [ src "./plasmo/plasmo11.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginBottom zero ] ] []
         ]
-        
+
 
 dochia sizes =
     div [ css [ width sizes.width, backgroundColor Color.dochiaPurple, marginLeft sizes.leftMargin ] ]
@@ -158,13 +174,52 @@ dochia sizes =
         , img [ src "./dochia/dochia8.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
         ]
 
+
+crown sizes =
+    div [ css [ width sizes.width, backgroundColor Color.white, marginLeft sizes.leftMargin ] ]
+        [ img [ src "./crown/crown1.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
+        , img [ src "./crown/crown2.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 22) ] ] []
+        , img [ src "./crown/crown3.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 22) ] ] []
+        , div [ css [ backgroundColor Color.iceBlue, marginTop (px 22), marginBottom (px 0) ] ] [ p [ css [ width sizes.textWidth, color Color.white, fontSize sizes.fontSize, marginLeft (vw 6), paddingTop <| px 40, paddingBottom <| px 40, marginBottom zero, lineHeight (Css.em 2) ] ] [ text "Inspired by a frosty winter morning, the Ice and wire headpiece tells the story of the Snow Queen. It combines aggressive, sharp materials, like glass and wire, hinted with glittery dust, providing a frozen icicle feel. This handcrafted statement headpiece was created as a university project." ] ]
+        , img [ src "./crown/crown5.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 22) ] ] []
+        , img [ src "./crown/crown6.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 22) ] ] []
+        ]
+
+
+ec sizes =
+    div [ css [ width sizes.width, backgroundColor Color.white, marginLeft sizes.leftMargin ] ]
+        [ img [ src "./ec/7sins1.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
+        , img [ src "./ec/7sins2.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./ec/7sins3.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./ec/7sins4.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./ec/7sins5.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./ec/7sins6.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        ]
+
+
+exlibris sizes =
+    div [ css [ width sizes.width, backgroundColor Color.librisBlue, marginLeft sizes.leftMargin ] ]
+        [ img [ src "./exlibris/exlibris1.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
+        , img [ src "./exlibris/exlibris2.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./exlibris/exlibris3.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./exlibris/exlibris4.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./exlibris/exlibris5.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./exlibris/exlibris6.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , p [ css [ width sizes.textWidth, color Color.inkBlue, fontSize sizes.fontSize, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "An ex libris is a bookplate, than is usually a small print or decorative label pasted or stamped into a book, often on the front endpaper, to indicate its owner, with an unique design. An ex libris usually consist of the owner's name or monogram, and a motif that relates to the owner of the book. This project represents a very personal one, because it was made for my father, who loves and collects books in his home library." ]
+        , img [ src "./exlibris/exlibris8.gif", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./exlibris/exlibris9.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        ]
+
+
 about messages sizes =
     div [ modalCss, onClick messages.closeModal ]
         [ div [ css [ width sizes.width, backgroundColor Color.black, color Color.white, marginLeft sizes.leftMargin ] ]
             [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
             , img [ src "./blue.jpg", css [ width (vw 20), maxWidth (vw 100), margin <| vw 5, float left ] ] []
             , p [ css [ width sizes.textWidth, color Color.white, fontSize sizes.fontSize, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ aboutText ]
-            ] ]
+            ]
+        ]
+
 
 aboutText : Html msg
 aboutText =
