@@ -11,8 +11,7 @@ import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, id, src, style)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
-import SmoothScroll exposing (Config, scrollToWithOptions)
-import Svg.Styled.Attributes as SvgAttributes
+import SmoothScroll exposing (Config, scrollToWithOptions, scrollTo)
 import Task
 import Time as Time
 import Url
@@ -26,6 +25,13 @@ defaultConfig : Config
 defaultConfig =
     { offset = 12
     , speed = 30
+    , easing = Ease.outQuint
+    }
+
+fastConfig : Config
+fastConfig =
+    { offset = 0
+    , speed = 200
     , easing = Ease.outQuint
     }
 
@@ -98,11 +104,12 @@ update msg model =
 
         CloseModal ->
             ( { model | openedModal = 0, bodyCss = [ cursor crosshair, overflowY hidden ], modalOn = False }
-            , Nav.pushUrl model.key "/home"
+            -- , Nav.pushUrl model.key "/home"
+            , Task.attempt (always DoNothing) (scrollToWithOptions fastConfig (String.fromInt model.openedModal))
             )
 
-        OpenModal id url ->
-            ( { model | openedModal = id, bodyCss = [ cursor crosshair, height <| vh 100, overflow hidden, overflowY hidden, pointerEvents none ], modalOn = True, toTopButtonShow = False }
+        OpenModal projectId url ->
+            ( { model | openedModal = projectId, bodyCss = [ cursor crosshair, height <| vh 100, overflow hidden, overflowY hidden, pointerEvents none ], modalOn = True, toTopButtonShow = False }
             , Cmd.none
             )
 
@@ -318,10 +325,10 @@ projectTable model =
 
 
 project : Model -> String -> String -> Int -> String -> Html Msg
-project model picturePath description id url =
-    div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn id, onMouseOut HoverOff, onClick <| OpenModal id url ]
+project model picturePath description projectId url =
+    div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn projectId, onMouseOut HoverOff, onClick <| OpenModal projectId url, id (String.fromInt projectId) ]
         [ img [ src picturePath, css [ margin zero, height (vw 30), width (vw 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
-        , if model.hoveredPicture == id then
+        , if model.hoveredPicture == projectId then
             p [ css [ position absolute, backgroundColor Color.transparent, width (vw 30), height (vw 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
                 [ p [ css [ display tableCell, verticalAlign middle ] ] [ text description ]
                 ]
@@ -362,7 +369,7 @@ toTopButton model =
 footer : Html Msg
 footer =
     nav [ css [ padding (px 10), fontSize (px 12), backgroundColor Color.black, color Color.white, height (vmin 15), displayFlex, alignItems center, justifyContent center, flexDirection column ] ]
-        [ div [] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        [ div [] [ text "© 2020 Beata Csaka. All Rights Reserved" ]
         , img [ src "./bea_logo_white.png", css [ margin (px 20), height (vmin 6), width (vmin 6), maxWidth (vw 10) ] ] []
         ]
 

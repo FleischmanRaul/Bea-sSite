@@ -77,9 +77,9 @@ openModal messages id onMobile =
 
 modalFrame messages project =
     div [ modalCss ]
-        [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -47.5) ], onClick messages.closeModal ] []
+        [ div [css [width <| vw 5, position fixed, height <| vh 100], onClick messages.closeModal] [img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -0.5) ], onClick messages.closeModal ] []]
         , project
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12) ] ] [ text "© 2019 Beata Csaka. All Rights Reserved" ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12) ] ] [ text "© 2020 Beata Csaka. All Rights Reserved" ]
         ]
 
 
