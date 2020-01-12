@@ -76,10 +76,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/Montserrat/OFL.txt"
   },
   {
-    "revision": "196052c8d28ac402c5ea62a91ee24c34",
-    "url": "/Bea-sSite/arrow.png"
-  },
-  {
     "revision": "dcc993c833541b600b69107cface2fa8",
     "url": "/Bea-sSite/astro/astro1.png"
   },
@@ -126,10 +122,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ac8f1c7aba08b2a6c78411811121d84f",
     "url": "/Bea-sSite/astro/astro_main.png"
-  },
-  {
-    "revision": "ac8f1c7aba08b2a6c78411811121d84f",
-    "url": "/Bea-sSite/astro_main.png"
   },
   {
     "revision": "aa4fc79d8aa8fabfa21099d537e1a22b",
@@ -204,12 +196,56 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/bosch/bosch_main.png"
   },
   {
-    "revision": "0190bedf932cbe55e8153d1c463987f3",
-    "url": "/Bea-sSite/bosch_main.png"
+    "revision": "d994ed7bb7dcdd96d5b2da325d6ad1b8",
+    "url": "/Bea-sSite/buttons/down.svg"
+  },
+  {
+    "revision": "194adbe8dde1942d3a15b92bdeaf1976",
+    "url": "/Bea-sSite/buttons/logo.svg"
+  },
+  {
+    "revision": "28c8e65c079bd4dc7a33b4a94fde8ee4",
+    "url": "/Bea-sSite/buttons/menu.svg"
+  },
+  {
+    "revision": "7fd820e5715e56ca04cb6eb3fd487cc6",
+    "url": "/Bea-sSite/buttons/up.svg"
+  },
+  {
+    "revision": "eb869d41a786677ce47ab35580fdb34f",
+    "url": "/Bea-sSite/buttons/x_black.svg"
+  },
+  {
+    "revision": "6bb961b89279f7663b66f7c43467781a",
+    "url": "/Bea-sSite/buttons/x_white.svg"
   },
   {
     "revision": "551f3c3d481ea22fde69a30075a1eeb0",
     "url": "/Bea-sSite/cross.png"
+  },
+  {
+    "revision": "8a67a3d8d6c4b30e4e66f6d995394c2c",
+    "url": "/Bea-sSite/crown/crown1.png"
+  },
+  {
+    "revision": "28d2ec7b2f1e34e4b405a9ab1a6c6cab",
+    "url": "/Bea-sSite/crown/crown2.png"
+  },
+  {
+    "revision": "dd331c140364808bf03df01f91a9da34",
+    "url": "/Bea-sSite/crown/crown3.png"
+  },
+  {
+    "revision": "5e9eabfc639655265370290f59579ffe",
+    "url": "/Bea-sSite/crown/crown5.png"
+  },
+  {
+    "revision": "1dcd85b46e2f0063df7620745981fd6b",
+    "url": "/Bea-sSite/crown/crown6.png"
+  },
+  {
+    "revision": "c60f757263d450c6b482f897d31af8b4",
+    "url": "/Bea-sSite/crown/crown_main.png"
   },
   {
     "revision": "372ea7316241d02b269bffaf20af2f3b",
@@ -246,6 +282,74 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "0f942f89f285bff776705aa695e6d66d",
     "url": "/Bea-sSite/dochia/dochia_main.png"
+  },
+  {
+    "revision": "df6a4dbe1771b7832923bf56d45b8167",
+    "url": "/Bea-sSite/ec/7sins1.png"
+  },
+  {
+    "revision": "5c1b14052b544f41dbe7829dfdca1497",
+    "url": "/Bea-sSite/ec/7sins2.png"
+  },
+  {
+    "revision": "cd95fb215a6b15be669e3844417dc001",
+    "url": "/Bea-sSite/ec/7sins3.png"
+  },
+  {
+    "revision": "53ea772b32aaf5f7848976638e61c859",
+    "url": "/Bea-sSite/ec/7sins4.png"
+  },
+  {
+    "revision": "e37b0e77a4bfa582ccec5ec756f2d7b3",
+    "url": "/Bea-sSite/ec/7sins5.png"
+  },
+  {
+    "revision": "5bb6e36027feb7bd7b0148dd4a644547",
+    "url": "/Bea-sSite/ec/7sins6.png"
+  },
+  {
+    "revision": "1e791fba7df6cab7ab6e829a13a23ba1",
+    "url": "/Bea-sSite/ec/7sins_overview.png"
+  },
+  {
+    "revision": "28143fe1752848e80f70206a38465ba7",
+    "url": "/Bea-sSite/ec/ec_main.png"
+  },
+  {
+    "revision": "8de305dd8c55bf5e9d8498bea60abebd",
+    "url": "/Bea-sSite/exlibris/exlibris1.png"
+  },
+  {
+    "revision": "c35bd516bf4ccfd527f6efc066de9e52",
+    "url": "/Bea-sSite/exlibris/exlibris2.png"
+  },
+  {
+    "revision": "1c12450791fe3717780a8e9a3823169f",
+    "url": "/Bea-sSite/exlibris/exlibris3.png"
+  },
+  {
+    "revision": "2395b340082e0d823b77a13561386605",
+    "url": "/Bea-sSite/exlibris/exlibris4.png"
+  },
+  {
+    "revision": "a9cd615769b8fc9f179245d800254b35",
+    "url": "/Bea-sSite/exlibris/exlibris5.png"
+  },
+  {
+    "revision": "45c3899382799f6613a07c6d7daa4a69",
+    "url": "/Bea-sSite/exlibris/exlibris6.png"
+  },
+  {
+    "revision": "a8a895dd0e13be39c82e00fbe55120c0",
+    "url": "/Bea-sSite/exlibris/exlibris8.gif"
+  },
+  {
+    "revision": "e8a8ded2a6d2446bd01752922ef3c70c",
+    "url": "/Bea-sSite/exlibris/exlibris9.png"
+  },
+  {
+    "revision": "f8d2c3903072072ba6c3fb05687b5f59",
+    "url": "/Bea-sSite/exlibris/exlibris_main.png"
   },
   {
     "revision": "987da976a8b2a4169346a497ba84749d",
@@ -340,7 +444,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/indagra/indagra_landing.png"
   },
   {
-    "revision": "29f741cb8607170f96d05d31f696be19",
+    "revision": "fc6e17e7afb27a1c2184089111ae6121",
     "url": "/Bea-sSite/index.html"
   },
   {
@@ -408,12 +512,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/plasmo/plasmo_main.png"
   },
   {
-    "revision": "79490bc85a3c3e55d9b5",
+    "revision": "7d59f03549586cce8d2a",
     "url": "/Bea-sSite/static/css/main.2163a596.chunk.css"
   },
   {
-    "revision": "79490bc85a3c3e55d9b5",
-    "url": "/Bea-sSite/static/js/main.79490bc8.chunk.js"
+    "revision": "7d59f03549586cce8d2a",
+    "url": "/Bea-sSite/static/js/main.7d59f035.chunk.js"
   },
   {
     "revision": "adea670f89df284908a8",
