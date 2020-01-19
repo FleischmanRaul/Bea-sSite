@@ -8,10 +8,10 @@ import Color
 import Css exposing (..)
 import Ease
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, id, src, style)
+import Html.Styled.Attributes exposing (css, id, src, style, href, target)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
-import SmoothScroll exposing (Config, scrollToWithOptions, scrollTo)
+import SmoothScroll exposing (Config, scrollToWithOptions)
 import Task
 import Time as Time
 import Url
@@ -27,6 +27,7 @@ defaultConfig =
     , speed = 30
     , easing = Ease.outQuint
     }
+
 
 fastConfig : Config
 fastConfig =
@@ -104,7 +105,7 @@ update msg model =
 
         CloseModal ->
             ( { model | openedModal = 0, bodyCss = [ cursor crosshair, overflowY hidden ], modalOn = False }
-            -- , Nav.pushUrl model.key "/home"
+              -- , Nav.pushUrl model.key "/home"
             , Task.attempt (always DoNothing) (scrollToWithOptions fastConfig (String.fromInt model.openedModal))
             )
 
@@ -129,7 +130,7 @@ update msg model =
             )
 
         JumpTo id ->
-            ( model
+            ( { model | menuOn = False }
             , Task.attempt (always DoNothing) (scrollToWithOptions defaultConfig id)
             )
 
@@ -149,7 +150,7 @@ update msg model =
                     ( model, Cmd.none )
 
                 Browser.External href ->
-                    ( model, Cmd.none )
+                    ( model, Nav.load href )
 
         UrlChanged url ->
             ( { model | url = url }
@@ -177,12 +178,14 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ Browser.Events.onResize WindowResize, 
-        if model.modalOn then 
+    Sub.batch
+        [ Browser.Events.onResize WindowResize
+        , if model.modalOn then
             Sub.none
-        else
-            Time.every 200 (always GetViewportClicked) 
-            ]
+
+          else
+            Time.every 200 (always GetViewportClicked)
+        ]
 
 
 
@@ -200,7 +203,7 @@ view model =
                 , style "-ms-user-select" "none"
                 , style "user-select" "none"
                 ]
-                [ beaLogo model
+                [ home model
                 , projectTable model
                 , projectModal model
                 , contact model
@@ -215,24 +218,38 @@ view model =
 
 contact : Model -> Html Msg
 contact model =
-    div [ id "contact", css [ displayFlex, alignItems center, justifyContent center, flexDirection column, margin (vmin 10) ] ]
-        [ div
-            [ css
-                [ width <| px 150
-                , height <| px 20
-                , margin <| px 20
-                , hover
-                    [ textDecorationLine underline
-                    ]
-                ]
-            , onClick SendMail
-            ]
-            [ text "Send me a mail" ]
+    let
+        sizes =
+            if model.mobile then
+                { logoSize = px 14
+                , buttonWidth = vw 15
+                }
+
+            else
+                { logoSize = px 20
+                , buttonWidth = vw 8
+                }
+    in
+    div [ id "contact", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, height (vh 10) ] ]
+        [ a [ css [ width sizes.buttonWidth ], href "mailto:beaa.csaka@gmail.com", target "_blank" ] [ img [ src "./icons/mail.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.instagram.com/beaaacska", target "_blank" ] [ img [ src "./icons/instagram.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.behance.net/beatacsaka", target "_blank" ] [ img [ src "./icons/behance.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.pinterest.com/beaacsaka", target "_blank" ] [ img [ src "./icons/pinterest.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.linkedin.com/in/cs%C3%A1ka-bea-21b5441a0", target "_blank" ] [ img [ src "./icons/linkedin.svg", css [ height sizes.logoSize, width sizes.logoSize, color Color.white ] ] [] ]
         ]
 
 
-beaLogo : Model -> Html Msg
-beaLogo model =
+home : Model -> Html Msg
+home model =
+    if model.mobile then
+        homeMobile model
+
+    else
+        homeDesktop model
+
+
+homeDesktop : Model -> Html Msg
+homeDesktop model =
     div [ id "home", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
         [ menuButton model
         , menu model
@@ -241,10 +258,24 @@ beaLogo model =
         ]
 
 
+homeMobile : Model -> Html Msg
+homeMobile model =
+    div [ id "home", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
+        [ div [ css [ Css.property "writing-mode" "vertical-rl", transform (rotate (deg 180)), margin zero, height (vw 34), width (vw 28), displayFlex, alignItems center, justifyContent center, letterSpacing (px 5), fontSize (px 8) ] ] [ text "BEÁTA CSÁKA" ]
+        , img [ src "./buttons/logo.svg", css [ marginLeft <| vw 5, marginTop <| vh 10, marginRight <| vw 5, marginBottom <| vh 10, height (vw 34), width (vw 34), maxWidth (vw 100) ], onClick <| OpenModal 7 "about" ] []
+        , menuButtonMobile model
+        , if model.menuOn then
+            menuMobile model
+
+          else
+            div [] []
+        ]
+
+
 menuButton : Model -> Html Msg
 menuButton model =
     div [ css [ height (vw 28), width (vw 3), margin zero, displayFlex, flexDirection column ] ]
-        [ div [ css [ Css.property "writing-mode" "vertical-rl", transform (rotate (deg 180)), margin zero, width (vw 3), height (vw 12), displayFlex, alignItems center, justifyContent flexEnd, letterSpacing (px 5), fontSize (px 12) ] ] [ text "BEATA CSAKA" ]
+        [ div [ css [ Css.property "writing-mode" "vertical-rl", transform (rotate (deg 180)), margin zero, width (vw 3), height (vw 12), displayFlex, alignItems center, justifyContent flexEnd, letterSpacing (px 5), fontSize (px 12) ] ] [ text "BEÁTA CSÁKA" ]
         , div [ onClick TogleMenu, css [ width (vw 3), paddingTop <| vw 1 ] ]
             [ if model.menuOn then
                 img [ src "./buttons/x_black.svg", css [ height (vmin 3), width (vmin 3), margin zero ] ] []
@@ -252,6 +283,16 @@ menuButton model =
               else
                 img [ src "./buttons/menu.svg", css [ height (vmin 3), width (vmin 3), margin zero ] ] []
             ]
+        ]
+
+
+menuButtonMobile model =
+    div [ onClick TogleMenu, css [ height (vw 34), width (vw 28), displayFlex, alignItems center, justifyContent center ] ]
+        [ if model.menuOn then
+            img [ src "./buttons/x_black.svg", css [ height (vmin 5), width (vmin 5), margin zero ] ] []
+
+          else
+            img [ src "./buttons/menu.svg", css [ height (vmin 5), width (vmin 5), margin zero ] ] []
         ]
 
 
@@ -303,6 +344,43 @@ menu model =
                 , hover
                     [ textDecorationLine underline
                     ]
+                ]
+            ]
+            [ text "CONTACT/" ]
+        ]
+
+
+menuCss =
+    css [ backgroundColor Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, zIndex (int 2) ]
+
+
+menuMobile : Model -> Html.Styled.Html Msg
+menuMobile model =
+    div
+        [ menuCss
+        ]
+        [ menuButtonMobile model
+        , p
+            [ onClick <| JumpTo "projects"
+            , css
+                [ displayFlex
+                , justifyContent center
+                ]
+            ]
+            [ text "PROJECTS/" ]
+        , p
+            [ onClick <| OpenModal 7 "about"
+            , css
+                [ displayFlex
+                , justifyContent center
+                ]
+            ]
+            [ text "ABOUT/" ]
+        , p
+            [ onClick <| JumpTo "contact"
+            , css
+                [ displayFlex
+                , justifyContent center
                 ]
             ]
             [ text "CONTACT/" ]
@@ -369,7 +447,7 @@ toTopButton model =
 footer : Html Msg
 footer =
     nav [ css [ padding (px 10), fontSize (px 12), backgroundColor Color.black, color Color.white, height (vmin 15), displayFlex, alignItems center, justifyContent center, flexDirection column ] ]
-        [ div [] [ text "© 2020 Beata Csaka. All Rights Reserved" ]
+        [ div [] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
         , img [ src "./bea_logo_white.png", css [ margin (px 20), height (vmin 6), width (vmin 6), maxWidth (vw 10) ] ] []
         ]
 
