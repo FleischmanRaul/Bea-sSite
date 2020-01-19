@@ -8,7 +8,7 @@ import Color
 import Css exposing (..)
 import Ease
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, id, src, style, href, target)
+import Html.Styled.Attributes exposing (css, href, id, src, style, target)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
 import Projects
 import SmoothScroll exposing (Config, scrollToWithOptions)
@@ -56,7 +56,7 @@ type alias Model =
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
     ( { menuOn = False
-      , hoverOn = False
+      , hoverOn = False 
       , hoveredPicture = 0
       , openedModal = 0
       , modalOn = False
@@ -87,7 +87,6 @@ type Msg
     | HoverOff
     | DoNothing
     | JumpTo String
-    | SendMail
     | WindowResize Int Int
     | LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
@@ -132,11 +131,6 @@ update msg model =
         JumpTo id ->
             ( { model | menuOn = False }
             , Task.attempt (always DoNothing) (scrollToWithOptions defaultConfig id)
-            )
-
-        SendMail ->
-            ( model
-            , Nav.load "mailto:beaa.csaka@gmail.com"
             )
 
         WindowResize w h ->
@@ -235,7 +229,7 @@ contact model =
         , a [ css [ width sizes.buttonWidth ], href "https://www.instagram.com/beaaacska", target "_blank" ] [ img [ src "./icons/instagram.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
         , a [ css [ width sizes.buttonWidth ], href "https://www.behance.net/beatacsaka", target "_blank" ] [ img [ src "./icons/behance.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
         , a [ css [ width sizes.buttonWidth ], href "https://www.pinterest.com/beaacsaka", target "_blank" ] [ img [ src "./icons/pinterest.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
-        , a [ css [ width sizes.buttonWidth ], href "https://www.linkedin.com/in/cs%C3%A1ka-bea-21b5441a0", target "_blank" ] [ img [ src "./icons/linkedin.svg", css [ height sizes.logoSize, width sizes.logoSize, color Color.white ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.linkedin.com/in/csakabeata/", target "_blank" ] [ img [ src "./icons/linkedin.svg", css [ height sizes.logoSize, width sizes.logoSize, color Color.white ] ] [] ]
         ]
 
 
