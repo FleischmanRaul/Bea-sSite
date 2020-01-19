@@ -1,7 +1,7 @@
 {
   "main.css": "/Bea-sSite/static/css/main.2163a596.chunk.css",
-  "main.js": "/Bea-sSite/static/js/main.ea4236dc.chunk.js",
-  "main.js.map": "/Bea-sSite/static/js/main.ea4236dc.chunk.js.map",
+  "main.js": "/Bea-sSite/static/js/main.d6642ff0.chunk.js",
+  "main.js.map": "/Bea-sSite/static/js/main.d6642ff0.chunk.js.map",
   "runtime~main.js": "/Bea-sSite/static/js/runtime~main.adea670f.js",
   "runtime~main.js.map": "/Bea-sSite/static/js/runtime~main.adea670f.js.map",
   "vendors~main.js": "/Bea-sSite/static/js/vendors~main.3ca81432.chunk.js",
@@ -109,6 +109,11 @@
   "heron/7.jpg": "/Bea-sSite/heron/7.jpg",
   "heron/8.png": "/Bea-sSite/heron/8.png",
   "heron/heron_landing.png": "/Bea-sSite/heron/heron_landing.png",
+  "icons/behance.svg": "/Bea-sSite/icons/behance.svg",
+  "icons/instagram.svg": "/Bea-sSite/icons/instagram.svg",
+  "icons/linkedin.svg": "/Bea-sSite/icons/linkedin.svg",
+  "icons/mail.svg": "/Bea-sSite/icons/mail.svg",
+  "icons/pinterest.svg": "/Bea-sSite/icons/pinterest.svg",
   "indagra/indagra.jpg": "/Bea-sSite/indagra/indagra.jpg",
   "indagra/indagra1.png": "/Bea-sSite/indagra/indagra1.png",
   "indagra/indagra2.png": "/Bea-sSite/indagra/indagra2.png",
@@ -135,5 +140,5 @@
   "plasmo/plasmo8.png": "/Bea-sSite/plasmo/plasmo8.png",
   "plasmo/plasmo9.png": "/Bea-sSite/plasmo/plasmo9.png",
   "plasmo/plasmo_main.png": "/Bea-sSite/plasmo/plasmo_main.png",
-  "precache-manifest.b13cbbaa760b95dc349a14130606d283.js": "/Bea-sSite/precache-manifest.b13cbbaa760b95dc349a14130606d283.js"
+  "precache-manifest.20fdd55bc6c0950202fe47cd23186c13.js": "/Bea-sSite/precache-manifest.20fdd55bc6c0950202fe47cd23186c13.js"
 }

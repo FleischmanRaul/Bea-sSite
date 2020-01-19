@@ -408,6 +408,26 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/heron/heron_landing.png"
   },
   {
+    "revision": "3b508cfc761268be1b062f131edd772c",
+    "url": "/Bea-sSite/icons/behance.svg"
+  },
+  {
+    "revision": "ea056d93940037b0d814a82d8cdb098f",
+    "url": "/Bea-sSite/icons/instagram.svg"
+  },
+  {
+    "revision": "73daa35d4dd3511daf86ff1b59575118",
+    "url": "/Bea-sSite/icons/linkedin.svg"
+  },
+  {
+    "revision": "e6956db22f6b55500046d41bb128484a",
+    "url": "/Bea-sSite/icons/mail.svg"
+  },
+  {
+    "revision": "19324b1bbeb54fb64f43aa30335a37d8",
+    "url": "/Bea-sSite/icons/pinterest.svg"
+  },
+  {
     "revision": "bb21f500e3ac3b0dce5b809c0eccc266",
     "url": "/Bea-sSite/indagra/indagra.jpg"
   },
@@ -444,7 +464,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/indagra/indagra_landing.png"
   },
   {
-    "revision": "dcd3d25e266da82385c2fe3538e4b40d",
+    "revision": "44cd3df253debd56b1eda27d32888ace",
     "url": "/Bea-sSite/index.html"
   },
   {
@@ -512,12 +532,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/plasmo/plasmo_main.png"
   },
   {
-    "revision": "ea4236dcd66070b91e84",
+    "revision": "d6642ff0716c51642690",
     "url": "/Bea-sSite/static/css/main.2163a596.chunk.css"
   },
   {
-    "revision": "ea4236dcd66070b91e84",
-    "url": "/Bea-sSite/static/js/main.ea4236dc.chunk.js"
+    "revision": "d6642ff0716c51642690",
+    "url": "/Bea-sSite/static/js/main.d6642ff0.chunk.js"
   },
   {
     "revision": "adea670f89df284908a8",
