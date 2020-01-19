@@ -132,10 +132,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/bea_logo_white.png"
   },
   {
-    "revision": "a50fa6e2ee216ce2aef8f06b0d78223a",
-    "url": "/Bea-sSite/blue.jpg"
-  },
-  {
     "revision": "0ad76a51b6fe18b1bee1b65aa65d6f50",
     "url": "/Bea-sSite/bosch/bosch visual.png"
   },
@@ -218,10 +214,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "6bb961b89279f7663b66f7c43467781a",
     "url": "/Bea-sSite/buttons/x_white.svg"
-  },
-  {
-    "revision": "551f3c3d481ea22fde69a30075a1eeb0",
-    "url": "/Bea-sSite/cross.png"
   },
   {
     "revision": "8a67a3d8d6c4b30e4e66f6d995394c2c",
@@ -352,18 +344,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/exlibris/exlibris_main.png"
   },
   {
-    "revision": "987da976a8b2a4169346a497ba84749d",
-    "url": "/Bea-sSite/favicon.ico"
-  },
-  {
-    "revision": "3f45a16c75ebc5d1004c0d5e0eb076e3",
-    "url": "/Bea-sSite/gray.jpeg"
-  },
-  {
-    "revision": "a2cd3d0a7f926efe9e170cc17ff6a126",
-    "url": "/Bea-sSite/hamburger.png"
-  },
-  {
     "revision": "eb879ce895648d71df95fef12fa5519d",
     "url": "/Bea-sSite/heron/1.jpg"
   },
@@ -468,16 +448,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/index.html"
   },
   {
-    "revision": "6ead519905b7b907c00965be37dd5cd7",
-    "url": "/Bea-sSite/logo.svg"
-  },
-  {
     "revision": "24bbfe6003bf25710a21d6a1e3e5c3ee",
     "url": "/Bea-sSite/manifest.json"
-  },
-  {
-    "revision": "53690defb4d866865168badf86cf16f6",
-    "url": "/Bea-sSite/pink.jpg"
   },
   {
     "revision": "1b319fa1bac09f3a7c3ed0bfaa6bbf69",

@@ -40,7 +40,6 @@
   "astro/astro_main.png": "/Bea-sSite/astro/astro_main.png",
   "bea_logo.png": "/Bea-sSite/bea_logo.png",
   "bea_logo_white.png": "/Bea-sSite/bea_logo_white.png",
-  "blue.jpg": "/Bea-sSite/blue.jpg",
   "bosch/bosch visual.png": "/Bea-sSite/bosch/bosch visual.png",
   "bosch/bosch1.png": "/Bea-sSite/bosch/bosch1.png",
   "bosch/bosch10.png": "/Bea-sSite/bosch/bosch10.png",
@@ -62,7 +61,6 @@
   "buttons/up.svg": "/Bea-sSite/buttons/up.svg",
   "buttons/x_black.svg": "/Bea-sSite/buttons/x_black.svg",
   "buttons/x_white.svg": "/Bea-sSite/buttons/x_white.svg",
-  "cross.png": "/Bea-sSite/cross.png",
   "crown/crown1.png": "/Bea-sSite/crown/crown1.png",
   "crown/crown2.png": "/Bea-sSite/crown/crown2.png",
   "crown/crown3.png": "/Bea-sSite/crown/crown3.png",
@@ -95,9 +93,6 @@
   "exlibris/exlibris8.gif": "/Bea-sSite/exlibris/exlibris8.gif",
   "exlibris/exlibris9.png": "/Bea-sSite/exlibris/exlibris9.png",
   "exlibris/exlibris_main.png": "/Bea-sSite/exlibris/exlibris_main.png",
-  "favicon.ico": "/Bea-sSite/favicon.ico",
-  "gray.jpeg": "/Bea-sSite/gray.jpeg",
-  "hamburger.png": "/Bea-sSite/hamburger.png",
   "heron/1.jpg": "/Bea-sSite/heron/1.jpg",
   "heron/2.jpg": "/Bea-sSite/heron/2.jpg",
   "heron/3.jpg": "/Bea-sSite/heron/3.jpg",
@@ -124,9 +119,7 @@
   "indagra/indagra7.png": "/Bea-sSite/indagra/indagra7.png",
   "indagra/indagra_landing.png": "/Bea-sSite/indagra/indagra_landing.png",
   "index.html": "/Bea-sSite/index.html",
-  "logo.svg": "/Bea-sSite/logo.svg",
   "manifest.json": "/Bea-sSite/manifest.json",
-  "pink.jpg": "/Bea-sSite/pink.jpg",
   "plasmo/plasmo1.png": "/Bea-sSite/plasmo/plasmo1.png",
   "plasmo/plasmo10.png": "/Bea-sSite/plasmo/plasmo10.png",
   "plasmo/plasmo11.png": "/Bea-sSite/plasmo/plasmo11.png",
@@ -140,5 +133,5 @@
   "plasmo/plasmo8.png": "/Bea-sSite/plasmo/plasmo8.png",
   "plasmo/plasmo9.png": "/Bea-sSite/plasmo/plasmo9.png",
   "plasmo/plasmo_main.png": "/Bea-sSite/plasmo/plasmo_main.png",
-  "precache-manifest.2d89060e4dc64dda425fbe80a9fdda35.js": "/Bea-sSite/precache-manifest.2d89060e4dc64dda425fbe80a9fdda35.js"
+  "precache-manifest.6e74bf9acccb12a6eeadeb21f79a4ee2.js": "/Bea-sSite/precache-manifest.6e74bf9acccb12a6eeadeb21f79a4ee2.js"
 }
