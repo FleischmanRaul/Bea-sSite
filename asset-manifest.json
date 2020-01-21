@@ -1,7 +1,7 @@
 {
   "main.css": "/Bea-sSite/static/css/main.2163a596.chunk.css",
-  "main.js": "/Bea-sSite/static/js/main.af95c64f.chunk.js",
-  "main.js.map": "/Bea-sSite/static/js/main.af95c64f.chunk.js.map",
+  "main.js": "/Bea-sSite/static/js/main.fd3483a9.chunk.js",
+  "main.js.map": "/Bea-sSite/static/js/main.fd3483a9.chunk.js.map",
   "runtime~main.js": "/Bea-sSite/static/js/runtime~main.adea670f.js",
   "runtime~main.js.map": "/Bea-sSite/static/js/runtime~main.adea670f.js.map",
   "vendors~main.js": "/Bea-sSite/static/js/vendors~main.3ca81432.chunk.js",
@@ -26,6 +26,9 @@
   "Montserrat/Montserrat-Thin.ttf": "/Bea-sSite/Montserrat/Montserrat-Thin.ttf",
   "Montserrat/Montserrat-ThinItalic.ttf": "/Bea-sSite/Montserrat/Montserrat-ThinItalic.ttf",
   "Montserrat/OFL.txt": "/Bea-sSite/Montserrat/OFL.txt",
+  "about/csb.svg": "/Bea-sSite/about/csb.svg",
+  "about/csb_signed.png": "/Bea-sSite/about/csb_signed.png",
+  "about/logo_name.svg": "/Bea-sSite/about/logo_name.svg",
   "astro/astro1.png": "/Bea-sSite/astro/astro1.png",
   "astro/astro10.png": "/Bea-sSite/astro/astro10.png",
   "astro/astro11.png": "/Bea-sSite/astro/astro11.png",
@@ -104,11 +107,11 @@
   "heron/7.jpg": "/Bea-sSite/heron/7.jpg",
   "heron/8.png": "/Bea-sSite/heron/8.png",
   "heron/heron_landing.png": "/Bea-sSite/heron/heron_landing.png",
-  "icons/behance.svg": "/Bea-sSite/icons/behance.svg",
-  "icons/instagram.svg": "/Bea-sSite/icons/instagram.svg",
-  "icons/linkedin.svg": "/Bea-sSite/icons/linkedin.svg",
-  "icons/mail.svg": "/Bea-sSite/icons/mail.svg",
-  "icons/pinterest.svg": "/Bea-sSite/icons/pinterest.svg",
+  "icons/behance_white.svg": "/Bea-sSite/icons/behance_white.svg",
+  "icons/instagram_white.svg": "/Bea-sSite/icons/instagram_white.svg",
+  "icons/linkedin_white.svg": "/Bea-sSite/icons/linkedin_white.svg",
+  "icons/mail_white.svg": "/Bea-sSite/icons/mail_white.svg",
+  "icons/pinterest_white.svg": "/Bea-sSite/icons/pinterest_white.svg",
   "indagra/indagra.jpg": "/Bea-sSite/indagra/indagra.jpg",
   "indagra/indagra1.png": "/Bea-sSite/indagra/indagra1.png",
   "indagra/indagra2.png": "/Bea-sSite/indagra/indagra2.png",
@@ -133,5 +136,5 @@
   "plasmo/plasmo8.png": "/Bea-sSite/plasmo/plasmo8.png",
   "plasmo/plasmo9.png": "/Bea-sSite/plasmo/plasmo9.png",
   "plasmo/plasmo_main.png": "/Bea-sSite/plasmo/plasmo_main.png",
-  "precache-manifest.ba3d6a2df455cbea82f4aba3850b5c5f.js": "/Bea-sSite/precache-manifest.ba3d6a2df455cbea82f4aba3850b5c5f.js"
+  "precache-manifest.8cac25f4d20c77982a14142e0b4dd37e.js": "/Bea-sSite/precache-manifest.8cac25f4d20c77982a14142e0b4dd37e.js"
 }

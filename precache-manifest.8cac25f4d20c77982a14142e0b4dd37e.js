@@ -76,6 +76,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/Montserrat/OFL.txt"
   },
   {
+    "revision": "e0764958d96ad6fd45ba1920c1ae49a1",
+    "url": "/Bea-sSite/about/csb.svg"
+  },
+  {
+    "revision": "de41eba8873ab3e9612d3174a5f859e3",
+    "url": "/Bea-sSite/about/csb_signed.png"
+  },
+  {
+    "revision": "7a3cc3938a541f0302008359c9e63c12",
+    "url": "/Bea-sSite/about/logo_name.svg"
+  },
+  {
     "revision": "dcc993c833541b600b69107cface2fa8",
     "url": "/Bea-sSite/astro/astro1.png"
   },
@@ -388,24 +400,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/heron/heron_landing.png"
   },
   {
-    "revision": "3b508cfc761268be1b062f131edd772c",
-    "url": "/Bea-sSite/icons/behance.svg"
+    "revision": "7690e578852ab69ba8570a8549f7a9b2",
+    "url": "/Bea-sSite/icons/behance_white.svg"
   },
   {
-    "revision": "ea056d93940037b0d814a82d8cdb098f",
-    "url": "/Bea-sSite/icons/instagram.svg"
+    "revision": "cf2773f0141cfd0748e6cad457a12df6",
+    "url": "/Bea-sSite/icons/instagram_white.svg"
   },
   {
-    "revision": "73daa35d4dd3511daf86ff1b59575118",
-    "url": "/Bea-sSite/icons/linkedin.svg"
+    "revision": "d53db9ca8575624e3b1950a91ff83966",
+    "url": "/Bea-sSite/icons/linkedin_white.svg"
   },
   {
-    "revision": "e6956db22f6b55500046d41bb128484a",
-    "url": "/Bea-sSite/icons/mail.svg"
+    "revision": "5a20b53433369bfe70105e17a681cb9d",
+    "url": "/Bea-sSite/icons/mail_white.svg"
   },
   {
-    "revision": "19324b1bbeb54fb64f43aa30335a37d8",
-    "url": "/Bea-sSite/icons/pinterest.svg"
+    "revision": "75688aef1bc4478c914e51b3a7a7a2b8",
+    "url": "/Bea-sSite/icons/pinterest_white.svg"
   },
   {
     "revision": "bb21f500e3ac3b0dce5b809c0eccc266",
@@ -444,7 +456,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/indagra/indagra_landing.png"
   },
   {
-    "revision": "1845ef02f547857c9d063a365b8506e9",
+    "revision": "8e2c084947c959d145554bad4e70b98f",
     "url": "/Bea-sSite/index.html"
   },
   {
@@ -504,12 +516,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/plasmo/plasmo_main.png"
   },
   {
-    "revision": "af95c64f7639152cd0c7",
+    "revision": "fd3483a92e9da6bbed26",
     "url": "/Bea-sSite/static/css/main.2163a596.chunk.css"
   },
   {
-    "revision": "af95c64f7639152cd0c7",
-    "url": "/Bea-sSite/static/js/main.af95c64f.chunk.js"
+    "revision": "fd3483a92e9da6bbed26",
+    "url": "/Bea-sSite/static/js/main.fd3483a9.chunk.js"
   },
   {
     "revision": "adea670f89df284908a8",
