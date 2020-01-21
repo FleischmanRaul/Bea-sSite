@@ -24,6 +24,13 @@ modalCss =
     css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden, pointerEvents auto, fontSize (px 0), lineHeight (px 0) ]
 
 
+aboutCss =
+    css [ backgroundColor Color.black, color Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, pointerEvents auto, displayFlex, flexDirection row, fontSize (px 14) ]
+
+aboutCssMobile =
+    css [ backgroundColor Color.black, color Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, pointerEvents auto, displayFlex, flexDirection column, fontSize (px 12) ]
+
+
 openModal messages id onMobile =
     let
         sizes =
@@ -42,42 +49,51 @@ openModal messages id onMobile =
                 }
     in
     if id == 1 then
-        modalFrame messages <| heron sizes
+        modalFrame onMobile messages <| heron sizes
 
     else if id == 2 then
-        modalFrame messages <| indagra sizes
+        modalFrame onMobile messages <| indagra sizes
 
     else if id == 3 then
-        modalFrame messages <| astroCards sizes
+        modalFrame onMobile messages <| astroCards sizes
 
     else if id == 4 then
-        modalFrame messages <| bosch sizes
+        modalFrame onMobile messages <| bosch sizes
 
     else if id == 5 then
-        modalFrame messages <| plasmo sizes
+        modalFrame onMobile messages <| plasmo sizes
 
     else if id == 6 then
-        modalFrame messages <| dochia sizes
+        modalFrame onMobile messages <| dochia sizes
 
     else if id == 7 then
-        about messages sizes
+        about onMobile messages
 
     else if id == 8 then
-        modalFrame messages <| crown sizes
+        modalFrame onMobile messages <| crown sizes
 
     else if id == 9 then
-        modalFrame messages <| ec sizes
+        modalFrame onMobile messages <| ec sizes
 
     else if id == 10 then
-        modalFrame messages <| exlibris sizes
+        modalFrame onMobile messages <| exlibris sizes
 
     else
         div [] []
 
 
-modalFrame messages project =
+modalFrame onMobile messages project =
+    let
+        closeSize =
+            if onMobile then
+                vw 15
+
+            else
+                vw 5
+                
+    in
     div [ modalCss ]
-        [ div [css [width <| vw 5, position fixed, height <| vh 100], onClick messages.closeModal] [img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16), position fixed, marginLeft (vw -0.5) ], onClick messages.closeModal ] []]
+        [ div [ css [ width closeSize, height closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
         , project
         , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12) ] ] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
         ]
@@ -211,16 +227,44 @@ exlibris sizes =
         ]
 
 
-about messages sizes =
-    div [ modalCss, onClick messages.closeModal ]
-        [ div [ css [ width sizes.width, backgroundColor Color.black, color Color.white, marginLeft sizes.leftMargin ] ]
-            [ img [ src "./cross.png", css [ height (px 16), width (px 16), position fixed, margin (px 20) ], onClick messages.closeModal ] []
-            , img [ src "./blue.jpg", css [ width (vw 20), maxWidth (vw 100), margin <| vw 5, float left ] ] []
-            , p [ css [ width sizes.textWidth, color Color.white, fontSize sizes.fontSize, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ aboutText ]
+about onMobile messages =
+    let
+        sizes = if onMobile then
+            {
+                css = aboutCssMobile
+                , textWidth = vw 80
+                , columnWidth = vw 80
+                , picWidth = vw 80
+                , leftMargin = vw 10
+                , logoSize = vw 8
+                , closeSize = vw 15
+            }
+            else 
+            {
+                css = aboutCss
+                , textWidth = vw 30
+                , columnWidth = vw 40
+                , picWidth = vw 27
+                , leftMargin = vw 8
+                , logoSize = vw 5
+                , closeSize = vw 5
+            } 
+    in
+        div [ sizes.css ]
+            [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
+            , div [ css [ width sizes.columnWidth, marginLeft sizes.leftMargin, paddingTop <| vh 5, displayFlex, flexDirection column, textAlign left ] ]
+                [ div [] [ img [ src "./about/csb.svg", css [ height sizes.logoSize, margin zero ] ] [] ]
+                , div [] [ img [ src "./about/csb_signed.png", css [ width sizes.picWidth, maxWidth (vw 80), float right ] ] [] ]
+                ]
+            , div [ css [ width sizes.textWidth, marginLeft sizes.leftMargin, marginRight <| vw 8, textAlign left, paddingTop <| vh 15 ] ]
+                [ p [] [ text "Hello." ]
+                , p [] [ text "My name is Beáta Csáka." ]
+                , p [] [ text "I am a multi-disciplinary designer, specialized in product, graphic and interior design.  I studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees." ]
+                , p [] [ text "I am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project." ]
+                , p [] [ text "Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics." ]
+                , p [] [ text "I believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work." ]
+                , p [] [ text "This online portfolio is a visual journey trough some of my projects!" ]
+                , p [] [ text "Hello." ]
+                , p [ css [ paddingBottom <| vh 8 ] ] [ text "Enjoy it!" ]
+                ]
             ]
-        ]
-
-
-aboutText : Html msg
-aboutText =
-    text "Hello. My name is Beáta Csáka.  I am a multi-disciplinary designer, specialized in product, graphic and interior design.  I studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees. I am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project. Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics.  I believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work.  This online portfolio is a visual journey trough some of my projects! Enjoy it!"

@@ -56,7 +56,7 @@ type alias Model =
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
     ( { menuOn = False
-      , hoverOn = False 
+      , hoverOn = False
       , hoveredPicture = 0
       , openedModal = 0
       , modalOn = False
@@ -83,6 +83,7 @@ type Msg
     = TogleMenu
     | CloseModal
     | OpenModal Int String
+    | OpenAbout
     | HoverOn Int
     | HoverOff
     | DoNothing
@@ -113,6 +114,11 @@ update msg model =
             , Cmd.none
             )
 
+        OpenAbout ->
+            ( { model | openedModal = 7, menuOn = False, bodyCss = [ cursor crosshair, height <| vh 100, overflow hidden, overflowY hidden, pointerEvents none ], modalOn = True, toTopButtonShow = False }
+            , Cmd.none
+            )
+
         HoverOn pictureId ->
             ( { model | hoveredPicture = pictureId }
             , Cmd.none
@@ -134,7 +140,7 @@ update msg model =
             )
 
         WindowResize w h ->
-            ( { model | height = h, width = w, mobile = w < 600 }
+            ( { model | height = h, width = w, mobile = w < 700 }
             , Cmd.none
             )
 
@@ -200,37 +206,13 @@ view model =
                 [ home model
                 , projectTable model
                 , projectModal model
-                , contact model
                 , toTopButton model
-                , footer
+                , footer model
                 ]
     in
     { body = [ Html.Styled.toUnstyled body ]
     , title = "Beata Csaka"
     }
-
-
-contact : Model -> Html Msg
-contact model =
-    let
-        sizes =
-            if model.mobile then
-                { logoSize = px 14
-                , buttonWidth = vw 15
-                }
-
-            else
-                { logoSize = px 20
-                , buttonWidth = vw 8
-                }
-    in
-    div [ id "contact", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, height (vh 10) ] ]
-        [ a [ css [ width sizes.buttonWidth ], href "mailto:beaa.csaka@gmail.com", target "_blank" ] [ img [ src "./icons/mail.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
-        , a [ css [ width sizes.buttonWidth ], href "https://www.instagram.com/beaaacska", target "_blank" ] [ img [ src "./icons/instagram.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
-        , a [ css [ width sizes.buttonWidth ], href "https://www.behance.net/beatacsaka", target "_blank" ] [ img [ src "./icons/behance.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
-        , a [ css [ width sizes.buttonWidth ], href "https://www.pinterest.com/beaacsaka", target "_blank" ] [ img [ src "./icons/pinterest.svg", css [ height sizes.logoSize, width sizes.logoSize ] ] [] ]
-        , a [ css [ width sizes.buttonWidth ], href "https://www.linkedin.com/in/csakabeata/", target "_blank" ] [ img [ src "./icons/linkedin.svg", css [ height sizes.logoSize, width sizes.logoSize, color Color.white ] ] [] ]
-        ]
 
 
 home : Model -> Html Msg
@@ -247,7 +229,7 @@ homeDesktop model =
     div [ id "home", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
         [ menuButton model
         , menu model
-        , img [ src "./buttons/logo.svg", css [ marginLeft <| vw 5, marginTop <| vh 15, marginRight <| vw 22, marginBottom <| vh 15, height (vw 28), width (vw 28), maxWidth (vw 100) ], onClick <| OpenModal 7 "about" ] []
+        , img [ src "./buttons/logo.svg", css [ marginLeft <| vw 5, marginTop <| vh 15, marginRight <| vw 25, marginBottom <| vh 15, height (vw 28), width (vw 28), maxWidth (vw 100) ], onClick <| OpenModal 7 "about" ] []
         , img [ src "./buttons/down.svg", css [ height (vmin 3), width (vmin 3) ], onClick <| JumpTo "projects" ] []
         ]
 
@@ -299,7 +281,7 @@ menu model =
             , displayFlex
             , flexDirection column
             , justifyContent center
-            , width <| vw 15
+            , width <| vw 18
             , height <| vw 30
             , if model.menuOn then
                 visibility visible
@@ -363,7 +345,7 @@ menuMobile model =
             ]
             [ text "PROJECTS/" ]
         , p
-            [ onClick <| OpenModal 7 "about"
+            [ onClick <| OpenAbout
             , css
                 [ displayFlex
                 , justifyContent center
@@ -438,10 +420,34 @@ toTopButton model =
         []
 
 
-footer : Html Msg
-footer =
-    nav [ css [ padding (px 10), fontSize (px 12), backgroundColor Color.black, color Color.white, height (vmin 15), displayFlex, alignItems center, justifyContent center, flexDirection column ] ]
-        [ div [] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
+contact : Model -> Html Msg
+contact model =
+    let
+        sizes =
+            if model.mobile then
+                { logoSize = px 14
+                , buttonWidth = vw 15
+                }
+
+            else
+                { logoSize = px 20
+                , buttonWidth = vw 8
+                }
+    in
+    div [ id "contact", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, height (vh 10) ] ]
+        [ a [ css [ width sizes.buttonWidth ], href "mailto:beaa.csaka@gmail.com", target "_blank" ] [ img [ src "./icons/mail_white.svg", css [ height sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.instagram.com/beaaacska", target "_blank" ] [ img [ src "./icons/instagram_white.svg", css [ height sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.behance.net/beatacsaka", target "_blank" ] [ img [ src "./icons/behance_white.svg", css [ height sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.pinterest.com/beaacsaka", target "_blank" ] [ img [ src "./icons/pinterest_white.svg", css [ height sizes.logoSize ] ] [] ]
+        , a [ css [ width sizes.buttonWidth ], href "https://www.linkedin.com/in/csakabeata/", target "_blank" ] [ img [ src "./icons/linkedin_white.svg", css [ height sizes.logoSize ] ] [] ]
+        ]
+
+
+footer : Model -> Html Msg
+footer model =
+    nav [ css [ padding (vh 3.5), marginTop <| vh 5, fontSize (px 12), backgroundColor Color.black, color Color.white, height (vmin 25), displayFlex, alignItems center, justifyContent center, flexDirection column ] ]
+        [ contact model
+        , div [css [paddingTop <| vh 2]] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
         , img [ src "./bea_logo_white.png", css [ margin (px 20), height (vmin 6), width (vmin 6), maxWidth (vw 10) ] ] []
         ]
 
