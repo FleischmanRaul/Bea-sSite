@@ -1,7 +1,7 @@
 {
   "main.css": "/Bea-sSite/static/css/main.2163a596.chunk.css",
-  "main.js": "/Bea-sSite/static/js/main.fd3483a9.chunk.js",
-  "main.js.map": "/Bea-sSite/static/js/main.fd3483a9.chunk.js.map",
+  "main.js": "/Bea-sSite/static/js/main.d110d908.chunk.js",
+  "main.js.map": "/Bea-sSite/static/js/main.d110d908.chunk.js.map",
   "runtime~main.js": "/Bea-sSite/static/js/runtime~main.adea670f.js",
   "runtime~main.js.map": "/Bea-sSite/static/js/runtime~main.adea670f.js.map",
   "vendors~main.js": "/Bea-sSite/static/js/vendors~main.3ca81432.chunk.js",
@@ -136,5 +136,5 @@
   "plasmo/plasmo8.png": "/Bea-sSite/plasmo/plasmo8.png",
   "plasmo/plasmo9.png": "/Bea-sSite/plasmo/plasmo9.png",
   "plasmo/plasmo_main.png": "/Bea-sSite/plasmo/plasmo_main.png",
-  "precache-manifest.8cac25f4d20c77982a14142e0b4dd37e.js": "/Bea-sSite/precache-manifest.8cac25f4d20c77982a14142e0b4dd37e.js"
+  "precache-manifest.7f8a149fcf0ab7c57e70fc1691600b08.js": "/Bea-sSite/precache-manifest.7f8a149fcf0ab7c57e70fc1691600b08.js"
 }
