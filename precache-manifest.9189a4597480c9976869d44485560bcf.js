@@ -1,5 +1,9 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "1a1655030023e27db9e71245f2efa0f8",
+    "url": "/Bea-sSite/CNAME"
+  },
+  {
     "revision": "27e3649bab7c62fa21b8837c4842e40e",
     "url": "/Bea-sSite/Montserrat/Montserrat-Black.ttf"
   },
@@ -456,7 +460,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/indagra/indagra_landing.png"
   },
   {
-    "revision": "8e6a2a2deb34e016a0e62f432d788752",
+    "revision": "711d0cdd8c9e5e43503aa4e903bf4224",
     "url": "/Bea-sSite/index.html"
   },
   {
@@ -516,12 +520,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/plasmo/plasmo_main.png"
   },
   {
-    "revision": "d110d9085046000e1f04",
+    "revision": "01766d989a000ccdd0aa",
     "url": "/Bea-sSite/static/css/main.2163a596.chunk.css"
   },
   {
-    "revision": "d110d9085046000e1f04",
-    "url": "/Bea-sSite/static/js/main.d110d908.chunk.js"
+    "revision": "01766d989a000ccdd0aa",
+    "url": "/Bea-sSite/static/js/main.01766d98.chunk.js"
   },
   {
     "revision": "adea670f89df284908a8",
