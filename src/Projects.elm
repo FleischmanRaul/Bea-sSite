@@ -21,14 +21,14 @@ type alias Sizes =
 
 
 modalCss =
-    css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow scroll, overflowY auto, overflowX hidden, pointerEvents auto, fontSize (px 0), lineHeight (px 0) ]
+    css [ backgroundColor Color.transparent, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, overflowX hidden, pointerEvents auto, fontSize (px 0), lineHeight (px 0) ]
 
 
 aboutCss =
     css [ backgroundColor Color.black, color Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, pointerEvents auto, displayFlex, flexDirection row, fontSize (px 14) ]
 
 aboutCssMobile =
-    css [ backgroundColor Color.black, color Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, pointerEvents auto, displayFlex, flexDirection column, fontSize (px 12) ]
+    css [ backgroundColor Color.black, color Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, pointerEvents auto, fontSize (px 12) ]
 
 
 openModal messages id onMobile =
@@ -84,18 +84,20 @@ openModal messages id onMobile =
 
 modalFrame onMobile messages project =
     let
-        closeSize =
+        sizes =
             if onMobile then
-                vw 15
+                { closeSize = vw 15
+                , bottomPadding = px 140 }
 
             else
-                vw 5
+                { closeSize = vw 5
+                , bottomPadding = px 20 }
                 
     in
     div [ modalCss ]
-        [ div [ css [ width closeSize, height closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
+        [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
         , project
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12) ] ] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12), paddingBottom sizes.bottomPadding ] ] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
         ]
 
 
@@ -238,6 +240,7 @@ about onMobile messages =
                 , leftMargin = vw 10
                 , logoSize = vw 8
                 , closeSize = vw 15
+                , topPadding = vh 0
             }
             else 
             {
@@ -248,15 +251,16 @@ about onMobile messages =
                 , leftMargin = vw 8
                 , logoSize = vw 5
                 , closeSize = vw 5
+                , topPadding = vh 15
             } 
     in
         div [ sizes.css ]
-            [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
+            [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 12), width (px 12) ], onClick messages.closeModal ] [] ]
             , div [ css [ width sizes.columnWidth, marginLeft sizes.leftMargin, paddingTop <| vh 5, displayFlex, flexDirection column, textAlign left ] ]
                 [ div [] [ img [ src "./about/csb.svg", css [ height sizes.logoSize, margin zero ] ] [] ]
                 , div [] [ img [ src "./about/csb_signed.png", css [ width sizes.picWidth, maxWidth (vw 80), float right ] ] [] ]
                 ]
-            , div [ css [ width sizes.textWidth, marginLeft sizes.leftMargin, marginRight <| vw 8, textAlign left, paddingTop <| vh 15 ] ]
+            , div [ css [ width sizes.textWidth, marginLeft sizes.leftMargin, textAlign left, paddingTop sizes.topPadding ] ]
                 [ p [] [ text "Hello." ]
                 , p [] [ text "My name is Beáta Csáka." ]
                 , p [] [ text "I am a multi-disciplinary designer, specialized in product, graphic and interior design.  I studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees." ]
@@ -264,7 +268,6 @@ about onMobile messages =
                 , p [] [ text "Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics." ]
                 , p [] [ text "I believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work." ]
                 , p [] [ text "This online portfolio is a visual journey trough some of my projects!" ]
-                , p [] [ text "Hello." ]
-                , p [ css [ paddingBottom <| vh 8 ] ] [ text "Enjoy it!" ]
+                , p [ css [ paddingBottom <| px 105 ] ] [ text "Enjoy it!" ]
                 ]
             ]

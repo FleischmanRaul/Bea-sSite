@@ -263,12 +263,12 @@ menuButton model =
 
 
 menuButtonMobile model =
-    div [ onClick TogleMenu, css [ height (vw 34), width (vw 28), displayFlex, alignItems center, justifyContent center ] ]
+    div [ css [ height (vw 34), width (vw 28), displayFlex, alignItems center, justifyContent center ] ]
         [ if model.menuOn then
-            img [ src "./buttons/x_black.svg", css [ height (vmin 5), width (vmin 5), margin zero ] ] []
+            img [ src "./buttons/x_black.svg", css [ height (px 16), width (px 16), margin zero, padding <| vw 5 ], onClick TogleMenu ] []
 
           else
-            img [ src "./buttons/menu.svg", css [ height (vmin 5), width (vmin 5), margin zero ] ] []
+            img [ src "./buttons/menu.svg", css [ height (px 16), width (px 16), margin zero, padding <| vw 5 ], onClick TogleMenu ] []
         ]
 
 
@@ -336,30 +336,33 @@ menuMobile model =
         [ menuCss
         ]
         [ menuButtonMobile model
-        , p
-            [ onClick <| JumpTo "projects"
-            , css
-                [ displayFlex
-                , justifyContent center
+        , div [ css [ displayFlex, alignItems center, justifyContent center, flexDirection column, verticalAlign center ] ]
+            [ p
+                [ onClick <| JumpTo "projects"
+                , css
+                    [ displayFlex
+                    , paddingTop <| vh 20
+                    , justifyContent center
+                    ]
                 ]
-            ]
-            [ text "PROJECTS/" ]
-        , p
-            [ onClick <| OpenAbout
-            , css
-                [ displayFlex
-                , justifyContent center
+                [ text "PROJECTS/" ]
+            , p
+                [ onClick <| OpenAbout
+                , css
+                    [ displayFlex
+                    , justifyContent center
+                    ]
                 ]
-            ]
-            [ text "ABOUT/" ]
-        , p
-            [ onClick <| JumpTo "contact"
-            , css
-                [ displayFlex
-                , justifyContent center
+                [ text "ABOUT/" ]
+            , p
+                [ onClick <| JumpTo "contact"
+                , css
+                    [ displayFlex
+                    , justifyContent center
+                    ]
                 ]
+                [ text "CONTACT/" ]
             ]
-            [ text "CONTACT/" ]
         ]
 
 
@@ -407,7 +410,7 @@ toTopButton model =
             [ height (vmin 3)
             , width (vmin 3)
             , position fixed
-            , bottom <| vmin 17
+            , bottom <| vh 31
             , right <| vw 1.5
             , if model.toTopButtonShow then
                 visibility visible
@@ -447,7 +450,7 @@ footer : Model -> Html Msg
 footer model =
     nav [ css [ padding (vh 3.5), marginTop <| vh 5, fontSize (px 12), backgroundColor Color.black, color Color.white, height (vmin 25), displayFlex, alignItems center, justifyContent center, flexDirection column ] ]
         [ contact model
-        , div [css [paddingTop <| vh 2]] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
+        , div [ css [ paddingTop <| vh 2 ] ] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
         , img [ src "./bea_logo_white.png", css [ margin (px 20), height (vmin 6), width (vmin 6), maxWidth (vw 10) ] ] []
         ]
 
