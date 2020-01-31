@@ -15,6 +15,7 @@ import SmoothScroll exposing (Config, scrollToWithOptions)
 import Task
 import Time as Time
 import Url
+import Url.Parser as Url exposing ((</>), Parser)
 
 
 
@@ -131,7 +132,7 @@ update msg model =
 
         DoNothing ->
             ( model
-            , Cmd.none
+            , Nav.pushUrl model.key "/"
             )
 
         JumpTo id ->
@@ -147,7 +148,7 @@ update msg model =
         LinkClicked urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
-                    ( model, Cmd.none )
+                    ( model, Nav.pushUrl model.key (Url.toString url) )
 
                 Browser.External href ->
                     ( model, Nav.load href )
@@ -185,6 +186,37 @@ subscriptions model =
 
           else
             Time.every 200 (always GetViewportClicked)
+        ]
+
+
+type Page
+    = Index
+    | Cats
+    | User Int
+
+
+urlToPage : Url.Url -> Page
+urlToPage url =
+    -- We start with our URL
+    url
+        -- Send it through our URL parser (located below)
+        |> Url.parse urlParser
+        -- And if it didn't match any known pages, return Index
+        |> Maybe.withDefault Index
+
+
+urlParser : Parser (Page -> a) a
+urlParser =
+    -- We try to match one of the following URLs
+    Url.oneOf
+        -- Url.top matches root (i.e. there is nothing after 'https://example.com')
+        [ Url.map Index Url.top
+
+        -- Url.s matches URLs ending with some string, in our case '/cats'
+        , Url.map Cats (Url.s "cats")
+
+        -- Again, Url.s matches a string. </> matches a '/' in the URL, and Url.int matches any integer and "returns" it, so that the user page value gets the user ID
+        , Url.map User (Url.s "user" </> Url.int)
         ]
 
 
@@ -384,7 +416,7 @@ projectTable model =
 project : Model -> String -> String -> Int -> String -> Html Msg
 project model picturePath description projectId url =
     div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn projectId, onMouseOut HoverOff, onClick <| OpenModal projectId url, id (String.fromInt projectId) ]
-        [ img [ src picturePath, css [ margin zero, height (vw 30), width (vw 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
+        [ a [href url] [img [ src picturePath, css [ margin zero, height (vw 30), width (vw 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
         , if model.hoveredPicture == projectId then
             p [ css [ position absolute, backgroundColor Color.transparent, width (vw 30), height (vw 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
                 [ p [ css [ display tableCell, verticalAlign middle ] ] [ text description ]
@@ -392,7 +424,7 @@ project model picturePath description projectId url =
 
           else
             p [] []
-        ]
+        ] ]
 
 
 projectModal : Model -> Html Msg
