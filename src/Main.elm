@@ -7,9 +7,13 @@ import Browser.Navigation as Nav
 import Color
 import Css exposing (..)
 import Ease
+import HitType
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, href, id, src, style, target)
 import Html.Styled.Events exposing (onClick, onMouseOut, onMouseOver)
+import Http
+import Measurement as GA
+import Parameter
 import Projects
 import SmoothScroll exposing (Config, scrollToWithOptions)
 import Task
@@ -68,7 +72,7 @@ init flags url key =
       , key = key
       , url = url
       }
-    , Task.perform windwoResizeFromVp Dom.getViewport
+    , Cmd.map Ga <| GA.pageview "UA-157437664-1" "55" "1"
     )
 
 
@@ -93,6 +97,7 @@ type Msg
     | UrlChanged Url.Url
     | ShowToTopButton Dom.Viewport
     | GetViewportClicked
+    | Ga GA.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -170,6 +175,9 @@ update msg model =
                 ( { model | toTopButtonShow = False }
                 , Cmd.none
                 )
+
+        Ga m ->
+            ( model, Task.perform windwoResizeFromVp Dom.getViewport )
 
 
 
