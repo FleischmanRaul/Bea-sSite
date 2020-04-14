@@ -83,7 +83,7 @@ windwoResizeFromVp vp =
 type Msg
     = TogleMenu
     | CloseModal
-    | OpenModal Int String
+    | OpenModal Int
     | OpenAbout
     | HoverOn Int
     | HoverOff
@@ -110,7 +110,7 @@ update msg model =
             , Task.attempt (always DoNothing) (scrollToWithOptions fastConfig (String.fromInt model.openedModal))
             )
 
-        OpenModal projectId url ->
+        OpenModal projectId ->
             ( { model | openedModal = projectId, bodyCss = [ cursor crosshair, height <| vh 100, overflow hidden, overflowY hidden, pointerEvents none ], modalOn = True, toTopButtonShow = False }
             , Cmd.none
             )
@@ -154,7 +154,15 @@ update msg model =
                     ( model, Nav.load href )
 
         UrlChanged url ->
-            ( { model | url = url }
+            let
+                mod =
+                    if url.path == "/" then
+                        { model | openedModal = 0, bodyCss = [ cursor crosshair, overflowY hidden ], modalOn = False }
+
+                    else
+                        model
+            in
+            ( mod
             , Cmd.none
             )
 
@@ -186,37 +194,6 @@ subscriptions model =
 
           else
             Time.every 200 (always GetViewportClicked)
-        ]
-
-
-type Page
-    = Index
-    | Cats
-    | User Int
-
-
-urlToPage : Url.Url -> Page
-urlToPage url =
-    -- We start with our URL
-    url
-        -- Send it through our URL parser (located below)
-        |> Url.parse urlParser
-        -- And if it didn't match any known pages, return Index
-        |> Maybe.withDefault Index
-
-
-urlParser : Parser (Page -> a) a
-urlParser =
-    -- We try to match one of the following URLs
-    Url.oneOf
-        -- Url.top matches root (i.e. there is nothing after 'https://example.com')
-        [ Url.map Index Url.top
-
-        -- Url.s matches URLs ending with some string, in our case '/cats'
-        , Url.map Cats (Url.s "cats")
-
-        -- Again, Url.s matches a string. </> matches a '/' in the URL, and Url.int matches any integer and "returns" it, so that the user page value gets the user ID
-        , Url.map User (Url.s "user" </> Url.int)
         ]
 
 
@@ -261,7 +238,7 @@ homeDesktop model =
     div [ id "home", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
         [ menuButton model
         , menu model
-        , img [ src "./buttons/logo.svg", css [ marginLeft <| vw 5, marginTop <| vh 15, marginRight <| vw 25, marginBottom <| vh 15, height (vw 28), width (vw 28), maxWidth (vw 100) ], onClick <| OpenModal 7 "about" ] []
+        , a [ href "about" ] [ img [ src "./buttons/logo.svg", css [ marginLeft <| vw 5, marginTop <| vh 15, marginRight <| vw 25, marginBottom <| vh 15, height (vw 28), width (vw 28), maxWidth (vw 100) ], onClick <| OpenModal 7 ] [] ]
         , img [ src "./buttons/down.svg", css [ height (vmin 3), width (vmin 3) ], onClick <| JumpTo "projects" ] []
         ]
 
@@ -270,7 +247,7 @@ homeMobile : Model -> Html Msg
 homeMobile model =
     div [ id "home", css [ displayFlex, alignItems center, justifyContent center, flexDirection row, verticalAlign center ] ]
         [ div [ css [ Css.property "writing-mode" "vertical-rl", transform (rotate (deg 180)), margin zero, height (vw 34), width (vw 28), displayFlex, alignItems center, justifyContent center, letterSpacing (px 5), fontSize (px 8) ] ] [ text "BEÁTA CSÁKA" ]
-        , img [ src "./buttons/logo.svg", css [ marginLeft <| vw 5, marginTop <| vh 10, marginRight <| vw 5, marginBottom <| vh 10, height (vw 34), width (vw 34), maxWidth (vw 100) ], onClick <| OpenModal 7 "about" ] []
+        , a [ href "about" ] [ img [ src "./buttons/logo.svg", css [ marginLeft <| vw 5, marginTop <| vh 10, marginRight <| vw 5, marginBottom <| vh 10, height (vw 34), width (vw 34), maxWidth (vw 100) ], onClick <| OpenModal 7 ] [] ]
         , menuButtonMobile model
         , if model.menuOn then
             menuMobile model
@@ -333,17 +310,19 @@ menu model =
                 ]
             ]
             [ text "PROJECTS/" ]
-        , p
-            [ onClick <| OpenModal 7 "about"
-            , css
-                [ displayFlex
-                , justifyContent flexEnd
-                , hover
-                    [ textDecorationLine underline
+        , a [ href "about", css [ color Color.black, textDecorationLine none ] ]
+            [ p
+                [ onClick <| OpenModal 7
+                , css
+                    [ displayFlex
+                    , justifyContent flexEnd
+                    , hover
+                        [ textDecorationLine underline
+                        ]
                     ]
                 ]
+                [ text "ABOUT/" ]
             ]
-            [ text "ABOUT/" ]
         , p
             [ onClick <| JumpTo "contact"
             , css
@@ -378,14 +357,16 @@ menuMobile model =
                     ]
                 ]
                 [ text "PROJECTS/" ]
-            , p
-                [ onClick <| OpenAbout
-                , css
-                    [ displayFlex
-                    , justifyContent center
+            , a [ href "about", css [ color Color.black, textDecorationLine none ] ]
+                [ p
+                    [ onClick <| OpenAbout
+                    , css
+                        [ displayFlex
+                        , justifyContent center
+                        ]
                     ]
+                    [ text "ABOUT/" ]
                 ]
-                [ text "ABOUT/" ]
             , p
                 [ onClick <| JumpTo "contact"
                 , css
@@ -415,16 +396,18 @@ projectTable model =
 
 project : Model -> String -> String -> Int -> String -> Html Msg
 project model picturePath description projectId url =
-    div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn projectId, onMouseOut HoverOff, onClick <| OpenModal projectId url, id (String.fromInt projectId) ]
-        [ a [href url] [img [ src picturePath, css [ margin zero, height (vw 30), width (vw 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
-        , if model.hoveredPicture == projectId then
-            p [ css [ position absolute, backgroundColor Color.transparent, width (vw 30), height (vw 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
-                [ p [ css [ display tableCell, verticalAlign middle ] ] [ text description ]
-                ]
+    div [ css [ display inlineBlock, position relative, margin (px 2), height (vw 30), width (vw 30) ], onMouseOver <| HoverOn projectId, onMouseOut HoverOff, onClick <| OpenModal projectId, id (String.fromInt projectId) ]
+        [ a [ href url ]
+            [ img [ src picturePath, css [ margin zero, height (vw 30), width (vw 30), maxWidth (vw 100), borderRadius (rem 0.2) ] ] []
+            , if model.hoveredPicture == projectId then
+                p [ css [ position absolute, backgroundColor Color.transparent, width (vw 30), height (vw 4), bottom (Css.em -1), borderRadius (rem 0.2), color Color.white, fontSize (px 16), display Css.table, letterSpacing (px 2) ] ]
+                    [ p [ css [ display tableCell, verticalAlign middle ] ] [ text description ]
+                    ]
 
-          else
-            p [] []
-        ] ]
+              else
+                p [] []
+            ]
+        ]
 
 
 projectModal : Model -> Html Msg
@@ -483,7 +466,7 @@ footer model =
     nav [ css [ padding (vh 3.5), marginTop <| vh 5, fontSize (px 12), backgroundColor Color.black, color Color.white, height (vmin 25), displayFlex, alignItems center, justifyContent center, flexDirection column ] ]
         [ contact model
         , div [ css [ paddingTop <| vh 2 ] ] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
-        , img [ src "./bea_logo_white.png", css [ margin (px 20), height (vmin 6), width (vmin 6), maxWidth (vw 10) ] ] []
+        , img [ src "./bea_logo_white.png", css [ margin (px 20), height (vmin 6), width (vmin 6) ] ] []
         ]
 
 
