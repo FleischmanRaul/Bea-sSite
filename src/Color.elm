@@ -37,6 +37,10 @@ heronBlack : Color
 heronBlack =
     rgb 35 30 37
 
+heronGold : Color
+heronGold = 
+    rgb 169 143 113
+
 
 paleYellow : Color
 paleYellow =
@@ -70,3 +74,11 @@ librisBlue =
 inkBlue : Color
 inkBlue = 
     rgb 111 122 210
+
+vinoBlack : Color 
+vinoBlack = 
+    rgb 12 28 44
+
+vinoBlue : Color
+vinoBlue = 
+    rgb 174 202 212

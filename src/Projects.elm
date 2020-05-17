@@ -1,4 +1,4 @@
-module Projects exposing (about, astroCards, bosch, dochia, heron, indagra, openModal, plasmo)
+module Projects exposing (about, astroCards, bosch, dochia, heron, heronLogo, indagra, openModal, plasmo, vino)
 
 import Color
 import Css exposing (..)
@@ -17,6 +17,7 @@ type alias Sizes =
     , fontSize : Css.Px
     , leftMargin : Css.Vw
     , textWidth : Css.Vw
+    , onMobile : Bool
     }
 
 
@@ -26,6 +27,7 @@ modalCss =
 
 aboutCss =
     css [ backgroundColor Color.black, color Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, pointerEvents auto, displayFlex, flexDirection row, fontSize (px 14) ]
+
 
 aboutCssMobile =
     css [ backgroundColor Color.black, color Color.white, position fixed, width (vw 100), top zero, height (vh 100), overflow auto, overflowY auto, pointerEvents auto, fontSize (px 12) ]
@@ -39,13 +41,15 @@ openModal messages id onMobile =
                 , fontSize = px 12
                 , leftMargin = vw 0
                 , textWidth = vw 88
+                , onMobile = True
                 }
 
             else
-                { width = vw 90
+                { width = vw 80
                 , fontSize = px 16
-                , leftMargin = vw 5
-                , textWidth = vw 78
+                , leftMargin = vw 10
+                , textWidth = vw 68
+                , onMobile = False
                 }
     in
     if id == 1 then
@@ -78,6 +82,12 @@ openModal messages id onMobile =
     else if id == 10 then
         modalFrame onMobile messages <| exlibris sizes
 
+    else if id == 11 then
+        modalFrame onMobile messages <| vino sizes
+
+    else if id == 12 then
+        modalFrame onMobile messages <| heronLogo sizes
+
     else
         div [] []
 
@@ -87,12 +97,13 @@ modalFrame onMobile messages project =
         sizes =
             if onMobile then
                 { closeSize = vw 15
-                , bottomPadding = px 140 }
+                , bottomPadding = px 140
+                }
 
             else
                 { closeSize = vw 5
-                , bottomPadding = px 20 }
-                
+                , bottomPadding = px 20
+                }
     in
     div [ modalCss ]
         [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
@@ -229,11 +240,52 @@ exlibris sizes =
         ]
 
 
+vino sizes =
+    div [ css [ width sizes.width, backgroundColor Color.white, marginLeft sizes.leftMargin ] ]
+        [ img [ src "./vino/in_vino_veritas_01.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
+        , img [ src "./vino/in_vino_veritas_02.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , div [ css [ backgroundColor Color.vinoBlack, displayFlex, flexDirection row ] ]
+            [ if sizes.onMobile then
+                div [] []
+
+              else
+                img [ src "./vino/in_vino_veritas_33.jpg", css [ width (vw 30), maxWidth (vw 30), margin zero, marginTop (px 7) ] ] []
+            , div [ css [ color Color.vinoBlue, fontSize sizes.fontSize, displayFlex, flexDirection column, lineHeight <| rem 1.5, textAlign left, justifyContent center, marginLeft <| px 20 ] ]
+                [ div [ css [ margin <| px 10, width (px 420), maxWidth (vw 80) ] ] [ text "With age, people get wiser and wine gets more refined." ]
+                , div [ css [ margin <| px 10, width (px 420), maxWidth (vw 80) ] ] [ text "A good story goes best with a great wine. I was always fascinated by our family’s stories and somehow I feel like they sound even more amazing with a glass of wine made from the grapes from our garden." ]
+                , div [ css [ margin <| px 10, width (px 420), maxWidth (vw 80) ] ] [ text "The phrase In ‘Vino Veritas’ is a latin phrase, meaning ‘The truth lies in Wine’." ]
+                , div [ css [ margin <| px 10, width (px 420), maxWidth (vw 80) ] ] [ text "Each bottle has its own story. The label design is dedicated to my father’s small winery and our family’s golden stories." ]
+                ]
+            ]
+        , img [ src "./vino/in_vino_veritas_04.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_05.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_06.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_08.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_09.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_10.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_11.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_12.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./vino/in_vino_veritas_13.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        ]
+
+
+heronLogo sizes =
+    div [ css [ width sizes.width, backgroundColor Color.white, marginLeft sizes.leftMargin ] ]
+        [ img [ src "./csb/csb_heron01.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
+        , img [ src "./csb/csb_heron02.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./csb/csb_heron03.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , div [ css [ fontSize sizes.fontSize, width sizes.textWidth, lineHeight <| rem 1.5, marginLeft (vw 6), marginTop (vh 8), marginBottom (vh 8), color Color.heronGold ] ] [ text "A visual identity for the luxury furniture collection, called Heron. It is a minimalistic and elegant representation of the majestic heron bird, constructed of golden thin lines. It is visually inspired by the Art Deco graphical style, just as the collection that it represents." ]
+        , img [ src "./csb/csb_heron05.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./csb/csb_heron06.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        , img [ src "./csb/csb_heron07.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        ]
+
+
 about onMobile messages =
     let
-        sizes = if onMobile then
-            {
-                css = aboutCssMobile
+        sizes =
+            if onMobile then
+                { css = aboutCssMobile
                 , textWidth = vw 80
                 , columnWidth = vw 80
                 , picWidth = vw 80
@@ -241,10 +293,10 @@ about onMobile messages =
                 , logoSize = vw 8
                 , closeSize = vw 15
                 , topPadding = vh 0
-            }
-            else 
-            {
-                css = aboutCss
+                }
+
+            else
+                { css = aboutCss
                 , textWidth = vw 30
                 , columnWidth = vw 40
                 , picWidth = vw 27
@@ -252,22 +304,22 @@ about onMobile messages =
                 , logoSize = vw 5
                 , closeSize = vw 5
                 , topPadding = vh 15
-            } 
+                }
     in
-        div [ sizes.css ]
-            [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 12), width (px 12) ], onClick messages.closeModal ] [] ]
-            , div [ css [ width sizes.columnWidth, marginLeft sizes.leftMargin, paddingTop <| vh 5, displayFlex, flexDirection column, textAlign left ] ]
-                [ div [] [ img [ src "./about/csb.svg", css [ height sizes.logoSize, margin zero ] ] [] ]
-                , div [] [ img [ src "./about/csb_signed.png", css [ width sizes.picWidth, maxWidth (vw 80), float right ] ] [] ]
-                ]
-            , div [ css [ width sizes.textWidth, marginLeft sizes.leftMargin, textAlign left, paddingTop sizes.topPadding ] ]
-                [ p [] [ text "Hello." ]
-                , p [] [ text "My name is Beáta Csáka." ]
-                , p [] [ text "I am a multi-disciplinary designer, specialized in product, graphic and interior design.  I studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees." ]
-                , p [] [ text "I am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project." ]
-                , p [] [ text "Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics." ]
-                , p [] [ text "I believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work." ]
-                , p [] [ text "This online portfolio is a visual journey trough some of my projects!" ]
-                , p [ css [ paddingBottom <| px 105 ] ] [ text "Enjoy it!" ]
-                ]
+    div [ sizes.css ]
+        [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 12), width (px 12) ], onClick messages.closeModal ] [] ]
+        , div [ css [ width sizes.columnWidth, marginLeft sizes.leftMargin, paddingTop <| vh 5, displayFlex, flexDirection column, textAlign left ] ]
+            [ div [] [ img [ src "./about/csb.svg", css [ height sizes.logoSize, margin zero ] ] [] ]
+            , div [] [ img [ src "./about/csb_signed.png", css [ width sizes.picWidth, maxWidth (vw 80), float right ] ] [] ]
             ]
+        , div [ css [ width sizes.textWidth, marginLeft sizes.leftMargin, textAlign left, paddingTop sizes.topPadding ] ]
+            [ p [] [ text "Hello." ]
+            , p [] [ text "My name is Beáta Csáka." ]
+            , p [] [ text "I am a multi-disciplinary designer, specialized in product, graphic and interior design.  I studied design at the University of Art and Design of Cluj-Napoca and Accademia di Belli Arti di Bari, Italy, obtaining my BA and MA degrees." ]
+            , p [] [ text "I am always seeking for beauty and searching to find equilibrium in everything I do, whenever it is about materials, color palettes or proportions. My work distinguishes itself with the combination of mostly natural, bold, high quality materials and color schemes, while my love for minimalism is peppered with the combination of all kind of styles, depending on the project." ]
+            , p [] [ text "Through the vast number of collaborations from various fields and diverse range of clients, I explore function, through the perspective of aesthetics." ]
+            , p [] [ text "I believes design is more than producing something, it is a journey, that requires some qualities along the way, that I consider I do have. First, curiosity, to question everything, to understand why things are the way they are. Then, courage to change them. Creativity to explore new concepts, forms and ideas. Discipline, to drive continual refinement. And the most important, passion, to be dedicated and enjoy the whole journey and deliver successful narratives through the visualization of my design work." ]
+            , p [] [ text "This online portfolio is a visual journey trough some of my projects!" ]
+            , p [ css [ paddingBottom <| px 105 ] ] [ text "Enjoy it!" ]
+            ]
+        ]

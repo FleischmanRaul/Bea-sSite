@@ -149,6 +149,7 @@ update msg model =
             case urlRequest of
                 Browser.Internal url ->
                     ( model, Nav.pushUrl model.key (Url.toString url) )
+                    -- ( model, Cmd.none )
 
                 Browser.External href ->
                     ( model, Nav.load href )
@@ -382,15 +383,17 @@ menuMobile model =
 projectTable : Model -> Html Msg
 projectTable model =
     div [ css [ maxWidth (vw 100), fontSize (px 0) ], id "projects" ]
-        [ project model "./heron/heron_landing.png" "HERON COLLECTION" 1 "heron"
-        , project model "./indagra/indagra_landing.png" "INDAGRA" 2 "indagra"
+        [ project model "./csb/heronlogo_main.jpg" "HERON LOGO" 12 "hlogo"
+        , project model "./heron/heron_main.jpg" "HERON COLLECTION" 1 "heron"
         , project model "./astro/astro_main.png" "ASTRO CARDS" 3 "astro"
-        , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4 "bosch"
-        , project model "./plasmo/plasmo_main.png" "PLASMO LIFE" 5 "plasmo"
+        , project model "./vino/in_vino_veritas.jpg" "IN VINO VERITAS" 11 "vino"
         , project model "./dochia/dochia_main.png" "CASA LU' DOCHIA" 6 "dochia"
+        , project model "./indagra/indagra_landing.png" "INDAGRA" 2 "indagra"
+        , project model "./plasmo/plasmo_main.png" "PLASMO LIFE" 5 "plasmo"
         , project model "./crown/crown_main.png" "ICE AND WIRE CROWN" 8 "crown"
-        , project model "./ec/ec_main.png" "EC 7" 9 "7sins"
         , project model "./exlibris/exlibris_main.png" "EX LIBRIS" 10 "exlibris"
+        , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4 "bosch"
+        , project model "./ec/ec_main.png" "EC 7" 9 "7sins"
         ]
 
 
