@@ -532,8 +532,48 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/indagra/indagra_landing.png"
   },
   {
-    "revision": "a98a4ce83c770aecf08bc9f674029af7",
+    "revision": "c5514947e119a19a3a77f1ae7efd973b",
     "url": "/Bea-sSite/index.html"
+  },
+  {
+    "revision": "1776606a6c373adff1230926d80eaa5c",
+    "url": "/Bea-sSite/kups/kups1.jpg"
+  },
+  {
+    "revision": "9593e61d28f7e58b11c50e8b99ac0337",
+    "url": "/Bea-sSite/kups/kups10.jpg"
+  },
+  {
+    "revision": "647ea386372e8421c4b8df589f085394",
+    "url": "/Bea-sSite/kups/kups11.jpg"
+  },
+  {
+    "revision": "006dd880cec09db91035b639d8a963ff",
+    "url": "/Bea-sSite/kups/kups3.jpg"
+  },
+  {
+    "revision": "1e6c66a7de152439e2f93f2c4612bf57",
+    "url": "/Bea-sSite/kups/kups4.jpg"
+  },
+  {
+    "revision": "8476f19add42c1871cbbfa1c823ab672",
+    "url": "/Bea-sSite/kups/kups5.jpg"
+  },
+  {
+    "revision": "5924d7ae926659df3408c95b814fec42",
+    "url": "/Bea-sSite/kups/kups6.jpg"
+  },
+  {
+    "revision": "f71f60028088ba2dc883d38582c2627c",
+    "url": "/Bea-sSite/kups/kups7.jpg"
+  },
+  {
+    "revision": "6b81ecf8bc5f84d6ec0b43b17787f390",
+    "url": "/Bea-sSite/kups/kups8.jpg"
+  },
+  {
+    "revision": "2d395cb05c27f78161b604e63612f1c2",
+    "url": "/Bea-sSite/kups/kups9.jpg"
   },
   {
     "revision": "24bbfe6003bf25710a21d6a1e3e5c3ee",
@@ -592,12 +632,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bea-sSite/plasmo/plasmo_main.png"
   },
   {
-    "revision": "43524c2e033754c1b456",
+    "revision": "291b83beafa2404faf15",
     "url": "/Bea-sSite/static/css/main.2163a596.chunk.css"
   },
   {
-    "revision": "43524c2e033754c1b456",
-    "url": "/Bea-sSite/static/js/main.43524c2e.chunk.js"
+    "revision": "291b83beafa2404faf15",
+    "url": "/Bea-sSite/static/js/main.291b83be.chunk.js"
   },
   {
     "revision": "adea670f89df284908a8",
