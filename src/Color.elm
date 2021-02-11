@@ -82,3 +82,11 @@ vinoBlack =
 vinoBlue : Color
 vinoBlue = 
     rgb 174 202 212
+
+kupsGrey : Color
+kupsGrey = 
+    rgb 55 58 65
+
+kupsWhite : Color
+kupsWhite = 
+    rgb 250 250 250

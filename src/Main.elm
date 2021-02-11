@@ -394,6 +394,7 @@ projectTable model =
         , project model "./exlibris/exlibris_main.png" "EX LIBRIS" 10 "exlibris"
         , project model "./bosch/bosch_main.png" "BOSCH WALL ART" 4 "bosch"
         , project model "./ec/ec_main.png" "EC 7" 9 "7sins"
+        , project model "./kups/kups5.jpg" "Kups" 13 "kups"
         ]
 
 
@@ -468,7 +469,7 @@ footer : Model -> Html Msg
 footer model =
     nav [ css [ padding (vh 3.5), marginTop <| vh 5, fontSize (px 12), backgroundColor Color.black, color Color.white, height (vmin 25), displayFlex, alignItems center, justifyContent center, flexDirection column ] ]
         [ contact model
-        , div [ css [ paddingTop <| vh 2 ] ] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
+        , div [ css [ paddingTop <| vh 2 ] ] [ text "© 2021 Beáta Csáka. All Rights Reserved" ]
         , img [ src "./bea_logo_white.png", css [ margin (px 20), height (vmin 6), width (vmin 6) ] ] []
         ]
 

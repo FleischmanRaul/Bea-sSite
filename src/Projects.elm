@@ -88,6 +88,9 @@ openModal messages id onMobile =
     else if id == 12 then
         modalFrame onMobile messages <| heronLogo sizes
 
+    else if id == 13 then
+        modalFrame onMobile messages <| kups sizes
+
     else
         div [] []
 
@@ -97,18 +100,20 @@ modalFrame onMobile messages project =
         sizes =
             if onMobile then
                 { closeSize = vw 15
+                , closeSizeHight = vh 15
                 , bottomPadding = px 140
                 }
 
             else
-                { closeSize = vw 5
+                { closeSize = vw 10
+                , closeSizeHight = vh 100
                 , bottomPadding = px 20
                 }
     in
     div [ modalCss ]
-        [ div [ css [ width sizes.closeSize, height sizes.closeSize, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
+        [ div [ css [ width sizes.closeSize, height sizes.closeSizeHight, position fixed, displayFlex, justifyContent center ], onClick messages.closeModal ] [ img [ src "./buttons/x_white.svg", css [ height (px 16), width (px 16) ], onClick messages.closeModal ] [] ]
         , project
-        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12), paddingBottom sizes.bottomPadding ] ] [ text "© 2020 Beáta Csáka. All Rights Reserved" ]
+        , div [ css [ paddingTop (vh 2), display inlineBlock, color Color.white, fontSize (px 12), paddingBottom sizes.bottomPadding ] ] [ text "© 2021 Beáta Csáka. All Rights Reserved" ]
         ]
 
 
@@ -147,9 +152,6 @@ astroCards sizes =
         , img [ src "./astro/astro2.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
         , img [ src "./astro/astro3.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
         , img [ src "./astro/astro4.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-        , img [ src "./astro/astro5.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-        , img [ src "./astro/astro6.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
-        , img [ src "./astro/astro7.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
         , img [ src "./astro/astro8.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
         , img [ src "./astro/astro9.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
         , img [ src "./astro/astro10.png", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
@@ -164,7 +166,7 @@ bosch sizes =
         , div [ css [ width sizes.textWidth, maxWidth (vw 100), color Color.white, fontSize sizes.fontSize, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "Wall art collaboration project made for BOSCH Romania. I created 3 large mural illustrations for the IT office of BOSCH in Cluj-Napoca.  The main illustration represents a gigantic computer screen in a paralel fantasy universe, where the principal character (computer scientist), hunts down the bug monsters that are eating the code. Each and every detail refers to computer science (for example the sun is a wiFi planet, the trees have mother board branches and the clouds are storage spaces, collecting information from the imaginary IT universe). I wanted to create an atmosphere that captures the dynamism of the company ecosystem with some dedicated illustrations and a vivid color palette, showing that the IT life is not that boring as it seems." ]
         , img [ src "./bosch/bosch4.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
         , img [ src "./bosch/bosch5.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
-        , div [ css [ width sizes.textWidth, color Color.white, fontSize sizes.fontSize, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The second wall illustration shows the importance of professionals and teamwork, which is the base of the company’s core values. Together, they build a world of IOT, where everything is connected. The details refer to the IT world also here (the stars are numbers of the binary ?)" ]
+        , div [ css [ width sizes.textWidth, color Color.white, fontSize sizes.fontSize, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The second wall illustration shows the importance of professionals and teamwork, which is the base of the company’s core values. Together, they build a world of IOT, where everything is connected." ]
         , img [ src "./bosch/bosch7.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
         , div [ css [ width sizes.textWidth, color Color.white, fontSize sizes.fontSize, marginLeft (vw 6), marginTop (vw 4), marginBottom (vw 4), lineHeight (Css.em 2) ] ] [ text "The third illustration is a reinterpretation of Michelangelo’s  famous fresco painting, The Creation of Adam. It illustrates the creation of the machines, and the human is shown as God, the creator." ]
         , img [ src "./bosch/bosch9.png", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
@@ -278,6 +280,21 @@ heronLogo sizes =
         , img [ src "./csb/csb_heron05.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
         , img [ src "./csb/csb_heron06.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
         , img [ src "./csb/csb_heron07.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px 7) ] ] []
+        ]
+
+kups sizes =
+    div [ css [ width sizes.width, backgroundColor Color.kupsWhite, marginLeft sizes.leftMargin ] ]
+        [ img [ src "./kups/kups1.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero ] ] []
+        , div [ css [ fontSize sizes.fontSize, width sizes.textWidth, lineHeight <| rem 1.5, marginLeft (vw 6), marginTop (vh 8), marginBottom (vh 8), color Color.kupsGrey] ] [ text "Illustration created for a small Coffee Shop in the heart of Cluj-Napoca. Their philosophy is that ‘Koffie unites people’s soul’. Based on this concept, I created an illustration for their shop window, which tells the story of coffee. Starting from the origins, it shows the process of how coffee is made, how it arrives in our favourite coffee shop, and how the delicious coffee is prepared by our favourite barista. Each detail is related to the concept of coffee’s journey. Grab a ‘kup’, follow the storyline!" ]
+        , img [ src "./kups/kups3.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups4.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups5.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups6.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups7.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups8.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups9.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups10.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginTop (px -2) ] ] []
+        , img [ src "./kups/kups11.jpg", css [ width sizes.width, maxWidth (vw 100), margin zero, marginBottom zero ] ] []
         ]
 
 
